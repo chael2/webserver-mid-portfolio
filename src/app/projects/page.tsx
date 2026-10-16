@@ -3,6 +3,7 @@ import { PageHero, SectionHeading } from "@/components/PageHero";
 import { LinkButtons } from "@/components/LinkButtons";
 import { Icon } from "@/components/Icon";
 import ProjectFilter from "@/components/client/ProjectFilter";
+import Link from "next/link";
 import { getProjects } from "@/lib/queries";
 
 export const metadata: Metadata = { title: "Projects", description: "과제와 개인·팀 프로젝트 아카이브" };
@@ -27,7 +28,11 @@ export default async function ProjectsPage() {
               </div>
               <div className="min-w-0 flex-1">
                 {p.badge && <span className="tag">{p.badge}</span>}
-                <h3 className="mt-3 font-display text-xl font-bold leading-snug sm:text-2xl">{p.title}</h3>
+                <h3 className="mt-3 font-display text-xl font-bold leading-snug sm:text-2xl">
+                  <Link href={`/projects/${p.slug}`} className="hover:text-accent hover:underline">
+                    {p.title}
+                  </Link>
+                </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted sm:text-base">{p.summary}</p>
                 {p.highlights && p.highlights.length > 0 && (
                   <ul className="mt-4 space-y-1.5 text-sm text-muted">

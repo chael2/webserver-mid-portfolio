@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Icon } from "./Icon";
 import { LinkButtons } from "./LinkButtons";
 import type { ProjectItem } from "@/lib/queries";
@@ -15,7 +16,11 @@ export function ProjectCard({ p }: { p: ProjectItem }) {
       </div>
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         {p.badge && <span className="tag self-start">{p.badge}</span>}
-        <h3 className="mt-3 font-display text-lg font-bold leading-snug">{p.title}</h3>
+        <h3 className="mt-3 font-display text-lg font-bold leading-snug">
+          <Link href={`/projects/${p.slug}`} className="hover:text-accent hover:underline">
+            {p.title}
+          </Link>
+        </h3>
         <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{p.summary}</p>
         {p.stack?.length > 0 && (
           <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="사용 기술">

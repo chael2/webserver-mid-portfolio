@@ -18,6 +18,10 @@ export type ProjectSeed = {
   kind: ProjectKind;
   stack: string[];
   icon: string;
+  period?: string; // 예: "2026.09 – 2026.12"
+  role?: string; // 본인 역할 한 줄
+  contributions?: string[]; // 본인이 직접 한 일
+  troubleshooting?: { problem: string; cause: string; solution: string; learned?: string }[];
   githubUrl?: string;
   deployUrl?: string;
   highlights?: string[];
@@ -33,12 +37,11 @@ export const profileSeed = {
   handle: "chael2",
   headline: "Information Security Student",
   intro:
-    "정보보호학을 전공하는 미래의 보안 전문가. 악성코드 분석과 취약점 분석, 그리고 안전한 보안 생태계를 구축하기 위해 오늘도 굴러갑니다.",
-  tagline:
-    "어제보다 오늘 더 안전한 세상을 만들기 위해, 오늘도 탐구하고 성장하는 정보보호학과 학생 함유진입니다.",
+    "정보보호학을 전공하고 있습니다. 웹 취약점이 생기는 원리를 직접 재현해 보고, 이를 막는 코드를 구현하며 공부하고 있습니다.",
+  tagline: "정보보호학과 함유진입니다. 웹 보안과 시큐어 코딩, 악성코드 분석을 공부하고 있습니다.",
   about:
-    "정보보호학을 공부하며 끊임없이 문제를 분석하고 해결책을 찾아 기록하는 학생입니다. 시스템 내부에서 일어나는 비정상적인 흐름을 추적하는 악성코드 분석에 강한 매력을 느끼고 있습니다.",
-  typingWords: ["정보보호학 학생", "취약점 분석가", "시큐어 코딩", "악성코드 연구원 지망생", "감자"],
+    "웹 애플리케이션의 취약점과 방어 방법을 중심으로 공부하고 있습니다. 공격이 어떻게 동작하는지 직접 재현해 보고, 같은 기능을 안전하게 구현하는 방법을 코드로 정리합니다. 시스템 내부의 비정상적인 흐름을 추적하는 악성코드 분석에도 관심이 있습니다.",
+  typingWords: ["Web Security", "Secure Coding", "Malware Analysis"],
   fields: [
     { label: "악성코드 분석 (Malware Analysis)", icon: "bug" },
     { label: "웹 시스템 보안 (Web Security)", icon: "shield" },
@@ -48,9 +51,11 @@ export const profileSeed = {
   links: {
     github: "https://github.com/chael2",
     blog: "https://chael2.tistory.com/",
+    // TODO: 면접용 공개 이메일 주소를 넣으면 About·Footer에 연락처가 표시됩니다
+    email: "",
   },
-  blogTitle: "감자의 떼굴떼굴 굴러가는 블로그",
-  blogDescription: "보안, Linux, 웹 개발에 대해 직접 공부하고 체득한 기술 지식 로그를 꾸준히 작성하고 있습니다.",
+  blogTitle: "기술 블로그",
+  blogDescription: "보안, Linux, 웹 개발을 공부하며 정리한 내용을 기록하고 있습니다.",
 };
 
 export const skillsSeed = [
@@ -99,6 +104,11 @@ export const projectsSeed: ProjectSeed[] = [
     // TODO: 저장소를 옮기면 githubUrl을 새 주소로 바꾸고 `npm run seed` 다시 실행
     githubUrl: "https://github.com/kimjungeunn/Web_Programming_Midterm_Demo",
     deployUrl: "https://web-programming-midterm-demo.vercel.app/",
+    // TODO: 본인 역할·기여·트러블슈팅을 채우면 프로젝트 상세 페이지에 표시됩니다
+    period: "",
+    role: "",
+    contributions: [],
+    troubleshooting: [],
     highlights: [
       "취약점 모의 실습: SQL Injection, XSS 등 OWASP Top 10 주요 웹 취약점 체험 페이지",
       "보안 방어 코드: 취약한 로직과 대비되는 시큐어 코딩 방어 로직 구현 및 비교",
@@ -114,7 +124,7 @@ export const projectsSeed: ProjectSeed[] = [
     title: "Web-Pedia v2 (웹 표준 & 모의 해킹 가이드 백과사전)",
     badge: "Team Project [FINAL] · 2026-1",
     summary:
-      "중간 발표의 웹 표준 가이드를 기말 최종 리뉴얼하여, 핵심 보안 취약점(XSS, SQL Injection)에 대한 가상 대응을 시각적으로 학습할 수 있는 실시간 모의 퀴즈 엔진을 탑재한 협업 사이트입니다.",
+      "중간 버전의 웹 표준 가이드에 XSS, SQL Injection 등 보안 취약점 설명과 퀴즈 기능을 더한 팀 프로젝트입니다.",
     category: "security",
     kind: "team",
     stack: ["HTML", "CSS", "JavaScript"],
@@ -186,7 +196,7 @@ export const projectsSeed: ProjectSeed[] = [
     title: "SQL Injection Sandbox",
     badge: "Toy Project 1",
     summary:
-      "SQL 인젝션 공격 구문을 직접 입력하고, DB 우회 동작 프로세스를 실시간 터미널 애니메이션으로 모니터링하는 시뮬레이터입니다.",
+      "SQL Injection 구문이 쿼리를 어떻게 바꾸는지 보여 주고, Prepared Statement를 적용했을 때 같은 입력이 어떻게 막히는지 비교하는 시뮬레이터입니다.",
     category: "security",
     kind: "personal",
     stack: ["HTML", "CSS", "JavaScript"],
@@ -200,7 +210,7 @@ export const projectsSeed: ProjectSeed[] = [
     title: "Secure Task Manager",
     badge: "Toy Project 2",
     summary:
-      "작전실 테마의 할 일 CRUD 및 일정 통제실. 로컬스토리지 데이터를 Access Key로 암호화(XOR/Base64) 보관하는 보안 특화 플래너입니다.",
+      "할 일 CRUD 기능에, 사용자가 입력한 Access Key로 XOR 연산 후 Base64로 인코딩해 localStorage에 저장하는 방식을 적용한 일정 관리 도구입니다.",
     category: "security",
     kind: "personal",
     stack: ["HTML", "CSS", "JavaScript"],
@@ -214,7 +224,7 @@ export const projectsSeed: ProjectSeed[] = [
     title: "Remote Light Switch",
     badge: "Arduino",
     summary:
-      "Arduino 보드를 장착하고 제어 앱을 구현해 원격으로 조작이 가능한 지능형 전등 스위치 컨트롤러 하드웨어 프로젝트입니다.",
+      "Arduino 보드와 제어 앱으로 전등 스위치를 원격 조작하는 하드웨어 프로젝트입니다.",
     category: "hardware",
     kind: "team",
     stack: ["C++", "Arduino"],

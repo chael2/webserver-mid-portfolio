@@ -10,11 +10,12 @@ export default async function HomePage() {
   const current = projects.filter((p) => p.isCurrentCourse);
 
   const hubs = [
-    { href: "/about", icon: FaUserShield, title: "About Me", desc: `정보보호 전공자 ${profile.name}의 관심사와 핵심 기술 스택 ${skills.length}개를 확인해보세요.`, cta: "프로필 확인하기", span: "lg:col-span-2", tone: "text-secondary" },
-    { href: "/blog", icon: FaRss, title: "Study Notes (Tistory)", desc: "리눅스 기초 학습, RCity 문제 풀이(CTF), VMware 설치 가이드 등 배운 것을 기록하는 기술 기록소입니다.", cta: "블로그 글 열기", span: "lg:col-span-2", tone: "text-secondary" },
-    { href: "/github", icon: FaGithub, title: "GitHub logs", desc: "코드 저장소 활동", cta: "레포 확인", span: "", tone: "text-accent" },
-    { href: "/projects", icon: FaFolderOpen, title: "Projects", desc: `웹 프로그래밍 과제와 개인·팀 프로젝트 ${projects.length}개를 소개합니다.`, cta: "아카이브 보기", span: "lg:col-span-2", tone: "text-secondary" },
-    { href: "/team", icon: FaUsers, title: "Co-Ops", desc: `OWASP Top 10 시연 사이트를 함께 만드는 ${team.length}명의 팀원 소개.`, cta: "팀원 조회", span: "", tone: "text-success" },
+    { href: "/about", icon: FaUserShield, title: "About Me", desc: `관심 분야와 기술 스택`, cta: "자세히 보기", span: "lg:col-span-2", tone: "text-secondary" },
+    { href: "/blog", icon: FaRss, title: "Blog", desc: "Linux, CTF 풀이, 실습 환경 구축 등 공부한 내용을 정리합니다.", cta: "블로그 보기", span: "lg:col-span-2", tone: "text-secondary" },
+    { href: "/github", icon: FaGithub, title: "GitHub", desc: "주요 저장소와 코드", cta: "저장소 보기", span: "", tone: "text-accent" },
+    { href: "/projects", icon: FaFolderOpen, title: "Projects", desc: `강의 과제와 개인·팀 프로젝트 ${projects.length}개`, cta: "프로젝트 보기", span: "lg:col-span-2", tone: "text-secondary" },
+    { href: "/team", icon: FaUsers, title: "Team", desc: `현재 팀 프로젝트를 함께하는 ${team.length}명의 팀원`, cta: "팀 보기", span: "", tone: "text-success" },
+    { href: "/security", icon: FaShieldHalved, title: "Security", desc: "이 사이트에 적용한 보안 설정 — HTTP 보안 헤더, 입력 검증, 도배 방지, 비밀 정보 관리", cta: "보안 설계 보기", span: "sm:col-span-2 lg:col-span-4", tone: "text-accent" },
   ];
 
   return (
@@ -36,7 +37,7 @@ export default async function HomePage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/projects" className="btn btn-primary">
-              <FaLaptopCode aria-hidden /> 프로젝트 분석
+              <FaLaptopCode aria-hidden /> 프로젝트 보기
             </Link>
             <Link href="/about" className="btn btn-ghost">
               <FaUserShield aria-hidden /> 소개 보기
@@ -95,9 +96,9 @@ export default async function HomePage() {
 
       {/* ── Bento 허브: 1열 → sm 2열 → lg 4열 ── */}
       <section className="mt-16 sm:mt-20" aria-labelledby="overview">
-        <p className="section-label">Command Center</p>
+        <p className="section-label">Overview</p>
         <h2 id="overview" className="section-title mt-3">
-          Security <span>Overview</span>
+          포트폴리오 <span>둘러보기</span>
         </h2>
         <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {hubs.map((h) => (

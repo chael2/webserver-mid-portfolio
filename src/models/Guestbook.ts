@@ -4,6 +4,8 @@ const GuestbookSchema = new Schema(
   {
     name: { type: String, required: true, trim: true, maxlength: 20 },
     message: { type: String, required: true, trim: true, maxlength: 300 },
+    // 도배 방지용. IP 원문이 아니라 솔트를 섞은 SHA-256 해시만 저장하고, 조회 시 기본으로 제외
+    ipHash: { type: String, select: false, index: true },
   },
   { timestamps: true },
 );

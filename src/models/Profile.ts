@@ -11,7 +11,7 @@ const ProfileSchema = new Schema({
   about: String,
   typingWords: { type: [String], default: [] },
   fields: { type: [{ label: String, icon: String }], default: [] },
-  links: { github: String, blog: String },
+  links: { github: String, blog: String, email: String },
   blogTitle: String,
   blogDescription: String,
 });

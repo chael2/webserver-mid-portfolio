@@ -23,9 +23,9 @@ export default function GuestbookForm() {
       </div>
       <div className="flex flex-col gap-3 sm:flex-row">
         <label className="sr-only" htmlFor="gb-name">이름</label>
-        <input id="gb-name" name="name" className="field sm:w-48" placeholder="성함 (Your Name)" maxLength={20} required autoComplete="nickname" />
+        <input id="gb-name" name="name" className="field sm:w-48" placeholder="이름" maxLength={20} required autoComplete="nickname" />
         <button type="submit" disabled={pending} className="btn btn-primary sm:ml-auto">
-          <FaPaperPlane aria-hidden /> {pending ? "전송 중…" : "전송 (Submit)"}
+          <FaPaperPlane aria-hidden /> {pending ? "전송 중…" : "등록"}
         </button>
       </div>
       <label className="sr-only" htmlFor="gb-message">메시지</label>
@@ -33,13 +33,13 @@ export default function GuestbookForm() {
         id="gb-message"
         name="message"
         className="field min-h-28 resize-y"
-        placeholder="로그 코멘트 남기기 (Write secure log message...)"
+        placeholder="메시지를 입력하세요 (300자 이내)"
         maxLength={300}
         required
       />
       <p className="min-h-5 text-sm" role="status" aria-live="polite">
         {state.error && <span className="text-[#f87171]">{state.error}</span>}
-        {state.ok && !pending && <span className="text-success">[+] 방명록이 MongoDB에 저장되었습니다.</span>}
+        {state.ok && !pending && <span className="text-success">등록되었습니다.</span>}
       </p>
     </form>
   );

@@ -13,7 +13,7 @@ export default async function GithubPage() {
 
   return (
     <>
-      <PageHero label="GitHub activity" title="GitHub" accent="Logs" desc="코드 저장소 활동과 지식 공유 기록입니다." />
+      <PageHero label="GitHub activity" title="GitHub" accent="Logs" desc="주요 저장소 목록입니다." />
 
       <section className="glow-card reveal flex flex-col items-center gap-6 p-6 text-center sm:p-9 md:flex-row md:text-left">
         <div className="grid size-24 shrink-0 place-items-center rounded-3xl bg-gradient-to-br from-primary to-accent text-5xl text-white shadow-neon">
@@ -21,10 +21,10 @@ export default async function GithubPage() {
         </div>
         <div className="flex-1">
           <span className="tag">
-            <FaFingerprint aria-hidden /> Secure Profile Key
+            <FaFingerprint aria-hidden /> GitHub Profile
           </span>
           <h2 className="mt-3 font-display text-3xl font-extrabold">{user}</h2>
-          <p className="mt-1 text-muted">보안꿈나무 · 정보보호학과 · Web &amp; Security</p>
+          <p className="mt-1 text-muted">정보보호학과 · Web Security</p>
           <a href={profile.links.github} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-5">
             <FaGithub aria-hidden /> GitHub 프로필 방문
           </a>

@@ -14,8 +14,7 @@ const HELP: [string, string][] = [
   ["about", "전공 분야 및 프로필 정보 출력"],
   ["skills", "보유 핵심 기술 분석 데이터 로드 (DB)"],
   ["projects", "프로젝트 목록 출력 (DB)"],
-  ["scan", "[보안] 시스템 모의 취약점 스캔 시뮬레이션"],
-  ["decrypt", "[보안] 암호문 복호화 해킹 효과 연출"],
+  ["security", "이 사이트에 적용한 보안 설정 보기"],
   ["toy1 / toy2", "보안 토이 프로젝트 정보 출력"],
   ["clear", "콘솔 로그 초기화"],
 ];
@@ -40,9 +39,6 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
     setLines((ls) => [...ls, { id, kind, content }]);
     return id;
   }, []);
-  const update = (id: number, content: ReactNode) =>
-    setLines((ls) => ls.map((l) => (l.id === id ? { ...l, content } : l)));
-
   const stopTimers = () => {
     timers.current.forEach((t) => clearInterval(t));
     timers.current = [];
@@ -57,62 +53,19 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
     if (el) el.scrollTop = el.scrollHeight;
   }, [lines]);
 
-  const runScan = () => {
-    push(<span className="text-gold">[!] WARNING: STARTING VULNERABILITY SCAN ON CURRENT CONTAINER...</span>);
-    const id = push("");
-    let progress = 0;
-    const t = setInterval(() => {
-      progress += 10;
-      const n = Math.floor(progress / 5);
-      update(id, <span className="text-accent">[~] SCANNING PORTS: [{"█".repeat(n) + "░".repeat(20 - n)}] {progress}%</span>);
-      if (progress >= 100) {
-        clearInterval(t);
-        setTimeout(() => {
-          push(<span className="font-bold text-success">[+] SCAN COMPLETED successfully.</span>);
-          push(
-            <div className="mt-1 rounded-md border border-line bg-success/5 p-3 text-xs leading-6">
-              - Host Gateway: secure-sandbox-{profile.handle}.io
-              <br />- Total scanned ports: 65,535
-              <br />- Discovered vulnerabilities: <span className="text-success">0 (SAFE)</span>
-              <br />- SSL Integrity: Verified (A+)
-              <br />
-              <span className="font-semibold text-accent">[CONCLUSION] PORTFOLIO WEBSITE SECURED. NO ANOMALIES DETECTED.</span>
-            </div>,
-          );
-        }, 300);
-      }
-    }, 150);
-    timers.current.push(t);
-  };
-
-  const runDecrypt = () => {
-    push(<span className="text-gold">[!] DETECTING ENCRYPTED SECRET KEY...</span>);
+  const showSecurity = () => {
     push(
-      <>
-        Encrypted Payload: <span className="text-muted">&quot;v3r_53cur3_c0d1n6_15_fuN_5h13ld&quot;</span>
-      </>,
+      <div className="mt-1 text-xs leading-6">
+        <span className="font-bold text-secondary">[SECURITY CONFIG]</span>
+        <br />- HTTP 보안 헤더: CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy
+        <br />- 방명록: zod 서버 검증, React 출력 이스케이프, honeypot, IP 해시 기준 1분 3회 제한
+        <br />- DB: Mongoose sanitizeFilter로 NoSQL Injection 방지, 비밀 정보는 환경 변수로 관리
+        <br />-{" "}
+          <a href="/security" className="font-bold text-success underline">
+            자세히 보기 (/security)
+          </a>
+      </div>,
     );
-    const id = push("");
-    const chars = "ABCDEF1234567890!@#$%^&*()_+{}[]";
-    const target = `${profile.handle}.dev: PASSION FOR SECURITY AND CODING`;
-    let count = 0;
-    const t = setInterval(() => {
-      count++;
-      const done = target.slice(0, count);
-      const noise = Array.from({ length: target.length - count }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
-      update(
-        id,
-        <>
-          <span className="text-muted">[DECRYPTION MODULE]</span>: <span className="font-bold text-secondary">{done}</span>
-          {noise}
-        </>,
-      );
-      if (count >= target.length) {
-        clearInterval(t);
-        setTimeout(() => push(<span className="font-bold text-success">[+] SECRET KEY RETRIEVED successfully!</span>), 200);
-      }
-    }, 40);
-    timers.current.push(t);
   };
 
   const toy = (slugTitle: string, label: string) => {
@@ -162,21 +115,20 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
       case "about":
         push(
           <div className="mt-1 leading-7">
-            <span className="font-bold text-secondary">[SECURITY PROFILE]</span>
+            <span className="font-bold text-secondary">[PROFILE]</span>
             <br />- <span className="text-accent">Name:</span> {profile.name}({profile.handle}.dev)
-            <br />- <span className="text-accent">Major:</span> 정보보호학 전공 ({profile.headline})
-            <br />- <span className="text-accent">Focus:</span> 악성코드 분석, 취약점 모니터링, 안전한 애플리케이션 보안 설계
-            <br />- <span className="text-accent">Mission:</span> 단단한 방패가 되어 줄 보안 전문가로 매일 한 걸음씩 성장 중
+            <br />- <span className="text-accent">Major:</span> 정보보호학 전공
+            <br />- <span className="text-accent">Focus:</span> 웹 보안, 시큐어 코딩, 악성코드 분석
           </div>,
         );
         break;
       case "skills":
         push(
           <div className="mt-1 text-xs leading-6">
-            <span className="font-bold text-secondary">[CORE SKILLS ARCHIVE · MongoDB]</span>
+            <span className="font-bold text-secondary">[SKILLS · MongoDB]</span>
             {skills.map((s) => (
               <div key={s.name}>
-                - {s.name.padEnd(12, " ")} <span className="font-bold text-success">[READY]</span> : {s.note}
+                - <span className="text-accent">{s.name}</span> : {s.note}
               </div>
             ))}
           </div>,
@@ -185,7 +137,7 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
       case "projects":
         push(
           <div className="mt-1 text-xs leading-6">
-            <span className="font-bold text-secondary">[PROJECTS DATABASE · MongoDB]</span>
+            <span className="font-bold text-secondary">[PROJECTS · MongoDB]</span>
             {projects.map((p, i) => (
               <div key={p.title}>
                 {i + 1}. <span className="font-semibold text-accent">{p.title}</span>{" "}
@@ -195,11 +147,9 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
           </div>,
         );
         break;
+      case "security":
       case "scan":
-        runScan();
-        break;
-      case "decrypt":
-        runDecrypt();
+        showSecurity();
         break;
       case "toy1":
         toy("SQL Injection Sandbox", "TOY PROJECT 1 - SQL INJECTION SANDBOX");
@@ -232,7 +182,7 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
           <span className="size-[11px] rounded-full bg-[#f59e0b]" />
           <span className="size-[11px] rounded-full bg-[#10b981]" />
         </div>
-        <span className="text-xs tracking-wider text-[#a69cc0]">{profile.handle}@security-shell: ~</span>
+        <span className="text-xs tracking-wider text-[#a69cc0]">{profile.handle}@portfolio: ~</span>
       </div>
 
       <div
@@ -278,7 +228,7 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
                 setValue(i >= 0 ? history[i] : "");
               }
             }}
-            placeholder="help 를 입력해 보세요"
+            placeholder="help 입력"
             autoComplete="off"
             autoCapitalize="none"
             spellCheck={false}
@@ -294,9 +244,8 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
 function Intro({ name, handle }: { name: string; handle: string }) {
   return (
     <div>
-      <div className="font-bold text-accent">[+] SYSTEM ONLINE. SHIELD CORE CONNECTED.</div>
-      <div className="mb-3 text-xs text-[#a69cc0]">Welcome to {handle} Security Command Shell (v4.0.0 · Next.js)</div>
-      <div>안녕하세요, 정보보호학과 {name}({handle})의 시큐리티 터미널입니다.</div>
+      <div className="font-bold text-accent">{handle}@portfolio ~ $</div>
+      <div className="mt-1">{name}({handle})의 포트폴리오 터미널입니다. 프로젝트와 기술 스택을 DB에서 불러와 보여 줍니다.</div>
       <div className="mt-2">
         사용 가능한 명령어 목록을 보시려면 <span className="text-secondary">&quot;help&quot;</span>를 입력하세요.
       </div>

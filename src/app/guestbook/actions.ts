@@ -1,5 +1,8 @@
 "use server";
 
+import { createHash } from "node:crypto";
+import { headers } from "next/headers";
+import { trusted } from "mongoose";
 import { z } from "zod";
 import { refresh } from "next/cache";
 import { connectDB, hasDB } from "@/lib/db";
@@ -12,13 +15,24 @@ const schema = z.object({
 
 export type GuestbookState = { ok: boolean; error?: string; at?: number };
 
+const WINDOW_MS = 60_000; // 1분
+const MAX_PER_WINDOW = 3; // 같은 IP에서 1분에 3개까지
+
+async function clientIpHash() {
+  const h = await headers();
+  const ip = h.get("x-forwarded-for")?.split(",")[0]?.trim() || h.get("x-real-ip") || "unknown";
+  const salt = process.env.IP_HASH_SALT ?? process.env.REVALIDATE_SECRET ?? "portfolio";
+  return createHash("sha256").update(`${salt}:${ip}`).digest("hex");
+}
+
 export async function addEntry(_prev: GuestbookState, formData: FormData): Promise<GuestbookState> {
   // honeypot: 사람에게는 보이지 않는 칸. 값이 있으면 봇으로 보고 조용히 무시
   if (formData.get("website")) return { ok: true, at: Date.now() };
 
+  // FormData 값을 문자열로 강제해 객체·배열이 DB 쿼리에 섞이지 않게 함
   const parsed = schema.safeParse({
-    name: formData.get("name") ?? "",
-    message: formData.get("message") ?? "",
+    name: String(formData.get("name") ?? ""),
+    message: String(formData.get("message") ?? ""),
   });
   if (!parsed.success) return { ok: false, error: parsed.error.issues[0]?.message ?? "입력값을 확인하세요" };
 
@@ -26,7 +40,14 @@ export async function addEntry(_prev: GuestbookState, formData: FormData): Promi
 
   try {
     await connectDB();
-    await Guestbook.create(parsed.data);
+    const ipHash = await clientIpHash();
+    const recent = await Guestbook.countDocuments({
+      ipHash,
+      // sanitizeFilter가 켜져 있으므로 서버에서 만든 연산자만 trusted()로 허용
+      createdAt: trusted({ $gte: new Date(Date.now() - WINDOW_MS) }),
+    });
+    if (recent >= MAX_PER_WINDOW) return { ok: false, error: "잠시 후 다시 작성해 주세요. (1분에 3개까지)" };
+    await Guestbook.create({ ...parsed.data, ipHash });
   } catch (err) {
     console.error("[guestbook] create failed", err);
     return { ok: false, error: "저장 중 오류가 발생했습니다. 잠시 후 다시 시도하세요." };

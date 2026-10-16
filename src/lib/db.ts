@@ -1,6 +1,9 @@
 import "server-only";
 import mongoose from "mongoose";
 
+// 쿼리 필터에 { $gt: "" } 같은 연산자 객체가 섞여 들어오는 NoSQL Injection 방지
+mongoose.set("sanitizeFilter", true);
+
 type Cache = { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null };
 
 // 서버리스(Vercel)·개발 모드 Hot Reload에서 커넥션이 쌓이지 않도록 전역에 캐시

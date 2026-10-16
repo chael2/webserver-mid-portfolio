@@ -1,4 +1,4 @@
-import { FaGithub, FaRss } from "react-icons/fa6";
+import { FaEnvelope, FaGithub, FaRss } from "react-icons/fa6";
 import { getProfile } from "@/lib/queries";
 
 export default async function Footer() {
@@ -19,6 +19,11 @@ export default async function Footer() {
           <a href={profile.links.blog} target="_blank" rel="noopener noreferrer" aria-label="Blog" className="grid size-11 place-items-center rounded-full text-muted transition hover:text-secondary">
             <FaRss />
           </a>
+          {profile.links.email && (
+            <a href={`mailto:${profile.links.email}`} aria-label="이메일" className="grid size-11 place-items-center rounded-full text-muted transition hover:text-accent">
+              <FaEnvelope />
+            </a>
+          )}
         </div>
       </div>
     </footer>

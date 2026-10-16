@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FaArrowRight, FaGithub, FaRss } from "react-icons/fa6";
+import { FaArrowRight, FaEnvelope, FaGithub, FaRss } from "react-icons/fa6";
 import { Icon } from "@/components/Icon";
 import { PageHero } from "@/components/PageHero";
 import { getProfile, getSkills } from "@/lib/queries";
@@ -37,6 +37,11 @@ export default async function AboutPage() {
               <a href={profile.links.blog} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm">
                 <FaRss aria-hidden /> Blog
               </a>
+              {profile.links.email && (
+                <a href={`mailto:${profile.links.email}`} className="btn btn-ghost btn-sm">
+                  <FaEnvelope aria-hidden /> Mail
+                </a>
+              )}
             </div>
           </div>
 
@@ -91,8 +96,8 @@ export default async function AboutPage() {
 
           <Link href="/guestbook" className="glow-card reveal group flex items-center justify-between gap-4 p-6 sm:p-7">
             <div>
-              <p className="section-label">Secure Feedback Gateway</p>
-              <p className="mt-2 font-display text-lg font-bold">방명록에 한 마디 남기기</p>
+              <p className="section-label">Guestbook</p>
+              <p className="mt-2 font-display text-lg font-bold">방명록 남기기</p>
             </div>
             <FaArrowRight className="shrink-0 text-xl text-accent transition group-hover:translate-x-1" aria-hidden />
           </Link>
