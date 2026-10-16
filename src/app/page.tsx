@@ -11,11 +11,11 @@ export default async function HomePage() {
 
   const hubs = [
     { href: "/about", icon: FaUserShield, title: "About Me", desc: `관심 분야와 기술 스택`, cta: "자세히 보기", span: "lg:col-span-2", tone: "text-secondary" },
-    { href: "/blog", icon: FaRss, title: "Blog", desc: "Linux, CTF 풀이, 실습 환경 구축 등 공부한 내용을 정리합니다.", cta: "블로그 보기", span: "lg:col-span-2", tone: "text-secondary" },
+    { href: "/blog", icon: FaRss, title: "Blog", desc: "Linux, CTF 풀이 기록", cta: "블로그 보기", span: "lg:col-span-2", tone: "text-secondary" },
     { href: "/github", icon: FaGithub, title: "GitHub", desc: "주요 저장소와 코드", cta: "저장소 보기", span: "", tone: "text-accent" },
     { href: "/projects", icon: FaFolderOpen, title: "Projects", desc: `강의 과제와 개인·팀 프로젝트 ${projects.length}개`, cta: "프로젝트 보기", span: "lg:col-span-2", tone: "text-secondary" },
     { href: "/team", icon: FaUsers, title: "Team", desc: `현재 팀 프로젝트를 함께하는 ${team.length}명의 팀원`, cta: "팀 보기", span: "", tone: "text-success" },
-    { href: "/security", icon: FaShieldHalved, title: "Security", desc: "이 사이트에 적용한 보안 설정 — HTTP 보안 헤더, 입력 검증, 도배 방지, 비밀 정보 관리", cta: "보안 설계 보기", span: "sm:col-span-2 lg:col-span-4", tone: "text-accent" },
+    { href: "/security", icon: FaShieldHalved, title: "Security", desc: "보안 헤더, 로그인, 입력 검증 등 이 사이트에 적용한 설정", cta: "보안 설계 보기", span: "sm:col-span-2 lg:col-span-4", tone: "text-accent" },
   ];
 
   return (
@@ -23,10 +23,10 @@ export default async function HomePage() {
       {/* ── Hero: 모바일 1열 → PC 2열 ── */}
       <section className="grid items-center gap-10 py-6 sm:py-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14 lg:py-16">
         <div className="animate-fade-up">
-          <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-1.5 font-mono text-xs text-accent sm:text-sm">
+          <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface-2 px-3 py-1 font-mono text-xs text-accent">
             <FaShieldHalved aria-hidden /> {profile.headline}
           </p>
-          <h1 className="mt-5 font-display text-[clamp(2.4rem,7vw,4.5rem)] font-extrabold leading-[1.1] tracking-tight">
+          <h1 className="mt-5 text-[clamp(2.25rem,6vw,3.75rem)] font-bold leading-[1.15]">
             <span className="block">안녕하세요</span>
             <span className="gradient-text block">{profile.name}입니다</span>
           </h1>

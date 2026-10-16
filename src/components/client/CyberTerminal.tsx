@@ -56,10 +56,11 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
   const showSecurity = () => {
     push(
       <div className="mt-1 text-xs leading-6">
-        <span className="font-bold text-secondary">[SECURITY CONFIG]</span>
+        <span className="font-bold text-[#c9c1ff]">[SECURITY CONFIG]</span>
         <br />- HTTP 보안 헤더: CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy
         <br />- 방명록: zod 서버 검증, React 출력 이스케이프, honeypot, IP 해시 기준 1분 3회 제한
-        <br />- DB: Mongoose sanitizeFilter로 NoSQL Injection 방지, 비밀 정보는 환경 변수로 관리
+        <br />- 로그인: scrypt 해시, HMAC 서명 쿠키, 15분 5회 실패 시 잠금
+        <br />- DB: sanitizeFilter로 NoSQL Injection 방지
         <br />-{" "}
           <a href="/security" className="font-bold text-success underline">
             자세히 보기 (/security)
@@ -73,8 +74,8 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
     if (!p) return push("해당 프로젝트 정보를 찾을 수 없습니다.", "error");
     push(
       <div className="mt-1 text-xs leading-6">
-        <span className="font-bold text-accent">[{label}]</span>
-        <br />- <span className="text-secondary">Description:</span> {p.summary}
+        <span className="font-bold text-[#8fdccd]">[{label}]</span>
+        <br />- <span className="text-[#c9c1ff]">Description:</span> {p.summary}
         {p.deployUrl && (
           <>
             <br />-{" "}
@@ -91,7 +92,7 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
     const cmd = raw.trim().toLowerCase();
     push(
       <>
-        <span className="text-accent">&gt; {profile.handle}.dev $</span> {raw}
+        <span className="text-[#8fdccd]">&gt; {profile.handle}.dev $</span> {raw}
       </>,
       "input",
     );
@@ -104,8 +105,8 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
             <tbody>
               {HELP.map(([c, d]) => (
                 <tr key={c}>
-                  <td className="w-24 pr-2 align-top text-accent">{c}</td>
-                  <td className="text-muted">{d}</td>
+                  <td className="w-24 pr-2 align-top text-[#8fdccd]">{c}</td>
+                  <td className="text-[#8a90a2]">{d}</td>
                 </tr>
               ))}
             </tbody>
@@ -115,20 +116,20 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
       case "about":
         push(
           <div className="mt-1 leading-7">
-            <span className="font-bold text-secondary">[PROFILE]</span>
-            <br />- <span className="text-accent">Name:</span> {profile.name}({profile.handle}.dev)
-            <br />- <span className="text-accent">Major:</span> 정보보호학 전공
-            <br />- <span className="text-accent">Focus:</span> 웹 보안, 시큐어 코딩, 악성코드 분석
+            <span className="font-bold text-[#c9c1ff]">[PROFILE]</span>
+            <br />- <span className="text-[#8fdccd]">Name:</span> {profile.name}({profile.handle}.dev)
+            <br />- <span className="text-[#8fdccd]">Major:</span> 정보보호학 전공
+            <br />- <span className="text-[#8fdccd]">Focus:</span> 취약점 분석, 악성코드 분석
           </div>,
         );
         break;
       case "skills":
         push(
           <div className="mt-1 text-xs leading-6">
-            <span className="font-bold text-secondary">[SKILLS · MongoDB]</span>
+            <span className="font-bold text-[#c9c1ff]">[SKILLS · MongoDB]</span>
             {skills.map((s) => (
               <div key={s.name}>
-                - <span className="text-accent">{s.name}</span> : {s.note}
+                - <span className="text-[#8fdccd]">{s.name}</span> : {s.note}
               </div>
             ))}
           </div>,
@@ -137,11 +138,11 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
       case "projects":
         push(
           <div className="mt-1 text-xs leading-6">
-            <span className="font-bold text-secondary">[PROJECTS · MongoDB]</span>
+            <span className="font-bold text-[#c9c1ff]">[PROJECTS · MongoDB]</span>
             {projects.map((p, i) => (
               <div key={p.title}>
-                {i + 1}. <span className="font-semibold text-accent">{p.title}</span>{" "}
-                <span className="text-muted">({KIND_LABEL[p.kind] ?? p.kind})</span>
+                {i + 1}. <span className="font-semibold text-[#8fdccd]">{p.title}</span>{" "}
+                <span className="text-[#8a90a2]">({KIND_LABEL[p.kind] ?? p.kind})</span>
               </div>
             ))}
           </div>,
@@ -164,7 +165,7 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
       default:
         push(
           <>
-            Command not found: &quot;{raw}&quot;. Type <span className="text-secondary">&quot;help&quot;</span> for a list of available commands.
+            Command not found: &quot;{raw}&quot;. Type <span className="text-[#c9c1ff]">&quot;help&quot;</span> for a list of available commands.
           </>,
           "error",
         );
@@ -173,16 +174,16 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
 
   return (
     <div
-      className="animate-fade-up overflow-hidden rounded-xl border border-line-strong bg-terminal font-mono text-[#f3f0ff] shadow-[0_20px_50px_rgb(0_0_0/0.6),0_0_15px_rgb(217_70_239/0.35)]"
+      className="animate-fade-up overflow-hidden rounded-2xl border border-white/10 bg-terminal font-mono text-[#e6e7ee] shadow-[0_30px_60px_-30px_rgb(0_0_0/0.7)]"
       onClick={() => inputRef.current?.focus({ preventScroll: true })}
     >
-      <div className="flex items-center justify-between border-b border-line bg-[rgb(15_6_36/0.9)] px-4 py-3">
+      <div className="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.02] px-4 py-3">
         <div className="flex gap-1.5" aria-hidden>
-          <span className="size-[11px] rounded-full bg-[#ef4444]" />
-          <span className="size-[11px] rounded-full bg-[#f59e0b]" />
-          <span className="size-[11px] rounded-full bg-[#10b981]" />
+          <span className="size-[10px] rounded-full bg-white/15" />
+          <span className="size-[10px] rounded-full bg-white/15" />
+          <span className="size-[10px] rounded-full bg-white/15" />
         </div>
-        <span className="text-xs tracking-wider text-[#a69cc0]">{profile.handle}@portfolio: ~</span>
+        <span className="text-xs text-[#8a90a2]">{profile.handle}@portfolio: ~</span>
       </div>
 
       <div
@@ -207,7 +208,7 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
             setValue("");
           }}
         >
-          <label htmlFor="cli" className="shrink-0 text-accent">
+          <label htmlFor="cli" className="shrink-0 text-[#8fdccd]">
             {profile.handle} $
           </label>
           <input
@@ -233,7 +234,7 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
             autoCapitalize="none"
             spellCheck={false}
             enterKeyHint="send"
-            className="min-w-0 flex-1 bg-transparent text-[16px] text-secondary caret-secondary outline-none placeholder:text-[#6b608c] sm:text-[13px]"
+            className="min-w-0 flex-1 bg-transparent text-[16px] text-[#c9c1ff] caret-[#c9c1ff] outline-none placeholder:text-[#5d6272] sm:text-[13px]"
           />
         </form>
       </div>
@@ -244,12 +245,12 @@ export default function CyberTerminal({ profile, skills, projects }: Props) {
 function Intro({ name, handle }: { name: string; handle: string }) {
   return (
     <div>
-      <div className="font-bold text-accent">{handle}@portfolio ~ $</div>
+      <div className="font-bold text-[#8fdccd]">{handle}@portfolio ~ $</div>
       <div className="mt-1">{name}({handle})의 포트폴리오 터미널입니다. 프로젝트와 기술 스택을 DB에서 불러와 보여 줍니다.</div>
       <div className="mt-2">
-        사용 가능한 명령어 목록을 보시려면 <span className="text-secondary">&quot;help&quot;</span>를 입력하세요.
+        사용 가능한 명령어 목록을 보시려면 <span className="text-[#c9c1ff]">&quot;help&quot;</span>를 입력하세요.
       </div>
-      <hr className="my-3 border-dashed border-[rgb(147_51_234/0.25)]" />
+      <hr className="my-3 border-dashed border-white/10" />
     </div>
   );
 }

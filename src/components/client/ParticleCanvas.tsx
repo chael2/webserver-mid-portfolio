@@ -42,8 +42,8 @@ export default function ParticleCanvas() {
       r: Math.random() * 2 + 1,
       vx: (Math.random() - 0.5) * 0.35,
       vy: (Math.random() - 0.5) * 0.35,
-      a: Math.random() * 0.4 + 0.15,
-      hue: Math.random() > 0.5 ? 270 : 180, // 보라 / 사이안
+      a: Math.random() * 0.25 + 0.08,
+      hue: Math.random() > 0.5 ? 250 : 170, // 보라 / 청록
     });
     const nodes = Array.from({ length: NUM }, make);
 
@@ -57,7 +57,7 @@ export default function ParticleCanvas() {
         if (p.x < 0 || p.x > W || p.y < 0 || p.y > H) nodes[i] = make();
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${p.hue}, 90%, 65%, ${p.a})`;
+        ctx.fillStyle = `hsla(${p.hue}, 70%, 72%, ${p.a})`;
         ctx.fill();
       }
       for (let i = 0; i < nodes.length; i++) {
@@ -67,8 +67,8 @@ export default function ParticleCanvas() {
           const d = Math.hypot(a.x - b.x, a.y - b.y);
           if (d >= LINK) continue;
           const g = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
-          g.addColorStop(0, `hsla(${a.hue}, 85%, 60%, ${(1 - d / LINK) * 0.12})`);
-          g.addColorStop(1, `hsla(${b.hue}, 85%, 60%, ${(1 - d / LINK) * 0.12})`);
+          g.addColorStop(0, `hsla(${a.hue}, 85%, 60%, ${(1 - d / LINK) * 0.07})`);
+          g.addColorStop(1, `hsla(${b.hue}, 85%, 60%, ${(1 - d / LINK) * 0.07})`);
           ctx.strokeStyle = g;
           ctx.lineWidth = 0.8;
           ctx.beginPath();

@@ -21,12 +21,12 @@ export default async function AboutPage() {
         {/* 좌측: 프로필 카드 (PC에서는 스크롤 시 고정) */}
         <aside className="space-y-6 lg:sticky lg:top-28">
           <div className="glow-card reveal p-7 text-center">
-            <div className="mx-auto grid size-28 place-items-center rounded-full bg-gradient-to-br from-primary via-secondary to-accent p-[3px]">
-              <div className="grid size-full place-items-center rounded-full bg-canvas text-5xl" aria-hidden>
+            <div className="mx-auto grid size-24 place-items-center rounded-full border border-line-strong p-1">
+              <div className="grid size-full place-items-center rounded-full bg-surface-2 text-4xl" aria-hidden>
                 👩‍💻
               </div>
             </div>
-            <h2 className="mt-5 font-display text-2xl font-extrabold">{profile.name}</h2>
+            <h2 className="mt-5 font-display text-2xl font-bold">{profile.name}</h2>
             <p className="mt-1 text-sm text-muted">
               {profile.headline} · {profile.handle}
             </p>
@@ -64,25 +64,25 @@ export default async function AboutPage() {
         <div className="space-y-6">
           <section className="glow-card reveal p-7 sm:p-9">
             <p className="section-label">Introduction</p>
-            <h2 className="mt-4 font-display text-2xl font-extrabold sm:text-3xl">
+            <h2 className="mt-4 font-display text-2xl font-bold sm:text-3xl">
               안녕하세요, <span className="accent-text">{profile.name}</span>입니다.
             </h2>
             <p className="mt-4 leading-relaxed text-muted sm:text-lg">{profile.about}</p>
           </section>
 
           <section className="glow-card reveal p-7 sm:p-9" aria-labelledby="stack">
-            <p className="section-label" id="stack">Tech Stack Logs</p>
+            <p className="section-label" id="stack">Tech Stack</p>
             <div className="mt-6 space-y-7">
               {groups.map((g) =>
                 g.items.length ? (
                   <div key={g.key}>
                     <h3 className="font-mono text-xs uppercase tracking-widest text-muted">{g.label}</h3>
-                    <ul className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                    <ul className="mt-3 grid grid-cols-2 gap-2 lg:grid-cols-3">
                       {g.items.map((s) => (
-                        <li key={s.id} className="flex items-start gap-3 rounded-xl border border-line bg-surface-2 p-3 transition hover:border-secondary">
+                        <li key={s.id} className="flex items-start gap-2.5 rounded-xl border border-line bg-surface-2 p-3">
                           <Icon name={s.icon} color={s.color} className="mt-0.5 size-5 shrink-0" />
                           <div>
-                            <div className="text-sm font-semibold">{s.name}</div>
+                            <div className="text-sm font-medium">{s.name}</div>
                             {s.note && <div className="text-xs leading-relaxed text-muted">{s.note}</div>}
                           </div>
                         </li>

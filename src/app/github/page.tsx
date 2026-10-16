@@ -1,65 +1,57 @@
 import type { Metadata } from "next";
-import { FaFingerprint, FaGithub } from "react-icons/fa6";
+import { FaArrowUpRightFromSquare, FaGithub } from "react-icons/fa6";
 import { Icon } from "@/components/Icon";
-import { PageHero, SectionHeading } from "@/components/PageHero";
-import { getProfile, getProjects, getTeamMembers } from "@/lib/queries";
+import { PageHero } from "@/components/PageHero";
+import { getProfile, getProjects } from "@/lib/queries";
 
 export const metadata: Metadata = { title: "GitHub", description: "GitHub 프로필과 주요 저장소" };
 
 export default async function GithubPage() {
-  const [profile, projects, team] = await Promise.all([getProfile(), getProjects(), getTeamMembers()]);
+  const [profile, projects] = await Promise.all([getProfile(), getProjects()]);
   const repos = projects.filter((p) => p.showOnGithub && p.githubUrl);
   const user = profile.links.github.replace(/\/$/, "").split("/").pop();
 
   return (
     <>
-      <PageHero label="GitHub activity" title="GitHub" accent="Logs" desc="주요 저장소 목록입니다." />
+      <PageHero label="GitHub" title="주요" accent="저장소" />
 
-      <section className="glow-card reveal flex flex-col items-center gap-6 p-6 text-center sm:p-9 md:flex-row md:text-left">
-        <div className="grid size-24 shrink-0 place-items-center rounded-3xl bg-gradient-to-br from-primary to-accent text-5xl text-white shadow-neon">
+      <a
+        href={profile.links.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="glow-card reveal flex items-center gap-4 p-5 sm:p-6"
+      >
+        <span className="icon-box size-12 text-xl">
           <FaGithub aria-hidden />
-        </div>
-        <div className="flex-1">
-          <span className="tag">
-            <FaFingerprint aria-hidden /> GitHub Profile
-          </span>
-          <h2 className="mt-3 font-display text-3xl font-extrabold">{user}</h2>
-          <p className="mt-1 text-muted">정보보호학과 · Web Security</p>
-          <a href={profile.links.github} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-5">
-            <FaGithub aria-hidden /> GitHub 프로필 방문
-          </a>
-        </div>
-        <dl className="grid grid-cols-2 gap-3">
-          <Stat value={repos.length} label="Repositories" />
-          <Stat value={team.length} label="Team Members" />
-        </dl>
-      </section>
+        </span>
+        <span className="flex-1">
+          <span className="block font-mono font-semibold">github.com/{user}</span>
+          <span className="block text-sm text-muted">저장소 {repos.length}개</span>
+        </span>
+        <FaArrowUpRightFromSquare className="text-muted" aria-hidden />
+      </a>
 
-      <section className="mt-16">
-        <SectionHeading label="Repositories" title="주요" accent="저장소" />
-        <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {repos.map((r) => (
-            <a key={r.id} href={r.githubUrl} target="_blank" rel="noopener noreferrer" className="glow-card reveal group flex flex-col p-6">
-              <div className="flex items-center gap-3">
-                <Icon name={r.icon} className="text-xl text-secondary" />
-                <h3 className="font-mono text-base font-bold group-hover:text-accent">{r.githubUrl!.split("/").pop()}</h3>
-              </div>
-              <p className="mt-1 text-xs text-muted">{r.title}</p>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{r.summary}</p>
-              <p className="mt-4 font-mono text-xs text-accent">{r.stack.join(" / ")}</p>
+      <ul className="mt-6 divide-y divide-line overflow-hidden rounded-[20px] border border-line bg-surface">
+        {repos.map((r) => (
+          <li key={r.id}>
+            <a
+              href={r.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-4 px-5 py-4 transition hover:bg-surface-2 sm:px-6"
+            >
+              <Icon name={r.icon} className="shrink-0 text-lg text-secondary" />
+              <span className="min-w-0 flex-1">
+                <span className="block truncate font-mono text-sm font-semibold group-hover:text-secondary">
+                  {r.githubUrl!.split("/").pop()}
+                </span>
+                <span className="block truncate text-sm text-muted">{r.summary}</span>
+              </span>
+              <span className="hidden shrink-0 font-mono text-xs text-muted sm:block">{r.stack.slice(0, 2).join(" · ")}</span>
             </a>
-          ))}
-        </div>
-      </section>
+          </li>
+        ))}
+      </ul>
     </>
-  );
-}
-
-function Stat({ value, label }: { value: number; label: string }) {
-  return (
-    <div className="min-w-28 rounded-2xl border border-line bg-surface-2 px-5 py-4 text-center">
-      <dd className="font-display text-3xl font-extrabold text-secondary">{value}</dd>
-      <dt className="text-xs text-muted">{label}</dt>
-    </div>
   );
 }

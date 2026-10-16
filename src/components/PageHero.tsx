@@ -3,12 +3,12 @@ import type { ReactNode } from "react";
 /** 서브 페이지 상단 제목 영역 */
 export function PageHero({ label, title, accent, desc }: { label: string; title: string; accent: string; desc?: ReactNode }) {
   return (
-    <header className="animate-fade-up py-10 text-center sm:py-16">
-      <p className="section-label justify-center">{label}</p>
-      <h1 className="mt-4 font-display text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+    <header className="animate-fade-up py-8 sm:py-14">
+      <p className="section-label">{label}</p>
+      <h1 className="mt-4 text-3xl font-bold sm:text-4xl lg:text-5xl">
         {title} <span className="accent-text">{accent}</span>
       </h1>
-      {desc && <p className="mx-auto mt-5 max-w-2xl text-base text-muted sm:text-lg">{desc}</p>}
+      {desc && <p className="mt-4 max-w-2xl text-base text-muted sm:text-lg">{desc}</p>}
     </header>
   );
 }

@@ -36,17 +36,16 @@ export const profileSeed = {
   name: "함유진",
   handle: "chael2",
   headline: "Information Security Student",
-  intro:
-    "정보보호학을 전공하고 있습니다. 웹 취약점이 생기는 원리를 직접 재현해 보고, 이를 막는 코드를 구현하며 공부하고 있습니다.",
-  tagline: "정보보호학과 함유진입니다. 웹 보안과 시큐어 코딩, 악성코드 분석을 공부하고 있습니다.",
+  intro: "취약점 분석과 악성코드 분석에 관심이 많은 정보보호학 전공생입니다.",
+  tagline: "취약점과 악성코드를 공부하는 정보보호학과 함유진입니다.",
   about:
-    "웹 애플리케이션의 취약점과 방어 방법을 중심으로 공부하고 있습니다. 공격이 어떻게 동작하는지 직접 재현해 보고, 같은 기능을 안전하게 구현하는 방법을 코드로 정리합니다. 시스템 내부의 비정상적인 흐름을 추적하는 악성코드 분석에도 관심이 있습니다.",
-  typingWords: ["Web Security", "Secure Coding", "Malware Analysis"],
+    "취약점이 생기는 원리와 악성코드의 동작 방식에 관심이 많습니다. 직접 재현하고 분석한 내용을 코드와 글로 정리합니다.",
+  typingWords: ["Vulnerability Analysis", "Malware Analysis", "Secure Coding"],
   fields: [
-    { label: "악성코드 분석 (Malware Analysis)", icon: "bug" },
-    { label: "웹 시스템 보안 (Web Security)", icon: "shield" },
-    { label: "리눅스 시스템 관리 (Linux System)", icon: "linux" },
-    { label: "취약점 분석 (Vulnerability Analysis)", icon: "code" },
+    { label: "취약점 분석", icon: "bug" },
+    { label: "악성코드 분석", icon: "shield" },
+    { label: "시스템 보안 (Linux)", icon: "linux" },
+    { label: "시큐어 코딩", icon: "code" },
   ],
   links: {
     github: "https://github.com/chael2",
@@ -55,32 +54,31 @@ export const profileSeed = {
     email: "",
   },
   blogTitle: "기술 블로그",
-  blogDescription: "보안, Linux, 웹 개발을 공부하며 정리한 내용을 기록하고 있습니다.",
+  blogDescription: "보안과 Linux를 공부하며 정리한 기록입니다.",
 };
 
 export const skillsSeed = [
-  { name: "HTML5", group: "language", icon: "html", color: "#e34f26", note: "표준 마크업 & 기기별 반응형 최적화 설계", order: 0 },
-  { name: "CSS3", group: "language", icon: "css", color: "#264de4", note: "CSS 변수 기반 테마 시스템 설계", order: 1 },
-  { name: "JavaScript", group: "language", icon: "js", color: "#f7df1e", note: "Vanilla JS DOM 제어 및 인터랙션 구현", order: 2 },
-  { name: "Python", group: "language", icon: "python", color: "#3776ab", note: "보안 스크립트 작성 및 취약점 분석 자동화", order: 3 },
-  { name: "Java", group: "language", icon: "java", color: "#e76f00", note: "OOP 구조 개발 및 자료구조 핸들링", order: 4 },
-  { name: "C / C++", group: "language", icon: "c", color: "#a8b5c0", note: "포인터·메모리 관리, 시큐어 코딩", order: 5 },
-  { name: "Next.js", group: "framework", icon: "next", color: "#f3f0ff", note: "App Router, Server Actions 기반 풀스택 개발", order: 6 },
-  { name: "MongoDB", group: "framework", icon: "mongo", color: "#10b981", note: "Mongoose 스키마 설계 및 데이터 연동", order: 7 },
-  { name: "Linux", group: "tool", icon: "linux", color: "#f3f0ff", note: "권한 관리 및 시스템 명령어 활용", order: 8 },
-  { name: "MySQL", group: "tool", icon: "db", color: "#4479a1", note: "관계형 DB 기초 및 SQL 작성", order: 9 },
-  { name: "Git / GitHub", group: "tool", icon: "github", color: "#f3f0ff", note: "형상 관리 및 팀 협업", order: 10 },
-  { name: "Kali Linux", group: "tool", icon: "shield", color: "#d946ef", note: "보안 진단 실습 환경 구성", order: 11 },
-  { name: "VMware", group: "tool", icon: "server", color: "#06b6d4", note: "가상화 실습 환경 구축", order: 12 },
+  { name: "HTML5", group: "language", icon: "html", color: "#e34f26", note: "마크업", order: 0 },
+  { name: "CSS3", group: "language", icon: "css", color: "#264de4", note: "스타일링", order: 1 },
+  { name: "JavaScript", group: "language", icon: "js", color: "#f7df1e", note: "DOM 제어", order: 2 },
+  { name: "Python", group: "language", icon: "python", color: "#3776ab", note: "분석 스크립트", order: 3 },
+  { name: "Java", group: "language", icon: "java", color: "#e76f00", note: "객체지향 기초", order: 4 },
+  { name: "C / C++", group: "language", icon: "c", color: "#a8b5c0", note: "메모리 구조 이해", order: 5 },
+  { name: "Next.js", group: "framework", icon: "next", color: "#f3f0ff", note: "이 사이트 구현", order: 6 },
+  { name: "MongoDB", group: "framework", icon: "mongo", color: "#10b981", note: "데이터 저장", order: 7 },
+  { name: "Linux", group: "tool", icon: "linux", color: "#f3f0ff", note: "시스템 명령어", order: 8 },
+  { name: "MySQL", group: "tool", icon: "db", color: "#4479a1", note: "SQL 기초", order: 9 },
+  { name: "Git / GitHub", group: "tool", icon: "github", color: "#f3f0ff", note: "버전 관리", order: 10 },
+  { name: "Kali Linux", group: "tool", icon: "shield", color: "#d946ef", note: "보안 실습 환경", order: 11 },
+  { name: "VMware", group: "tool", icon: "server", color: "#06b6d4", note: "가상 분석 환경", order: 12 },
 ];
 
 export const projectsSeed: ProjectSeed[] = [
   {
     slug: "portfolio-nextjs",
     title: "Chael2's Portfolio (Next.js + MongoDB)",
-    badge: "웹서버프로그래밍 [NOW]",
-    summary:
-      "HTML/CSS 기말 포트폴리오를 Next.js App Router, MongoDB(Mongoose), Tailwind CSS로 재구축한 버전입니다. 프로젝트·기술 스택·팀 정보와 방명록을 DB에서 불러옵니다.",
+    badge: "웹서버프로그래밍",
+    summary: "Next.js와 MongoDB로 다시 만든 개인 포트폴리오.",
     category: "web",
     kind: "assignment",
     stack: ["Next.js", "MongoDB", "Tailwind CSS", "Vercel"],
@@ -94,9 +92,8 @@ export const projectsSeed: ProjectSeed[] = [
   {
     slug: "owasp-top10-demo",
     title: "OWASP Top 10 시연 및 방어 모의 웹사이트",
-    badge: "웹서버프로그래밍 Team Project",
-    summary:
-      "SQL Injection, XSS 등 OWASP Top 10 주요 웹 취약점을 직접 체험하고, 같은 기능을 시큐어 코딩으로 막아낸 방어 로직과 나란히 비교해 볼 수 있는 모의 실습 웹사이트입니다.",
+    badge: "웹서버프로그래밍 · Team",
+    summary: "OWASP Top 10 취약점을 직접 시연하고, 방어 코드와 비교하는 모의 사이트.",
     category: "security",
     kind: "team",
     stack: ["Node.js", "MongoDB"],
@@ -110,9 +107,9 @@ export const projectsSeed: ProjectSeed[] = [
     contributions: [],
     troubleshooting: [],
     highlights: [
-      "취약점 모의 실습: SQL Injection, XSS 등 OWASP Top 10 주요 웹 취약점 체험 페이지",
-      "보안 방어 코드: 취약한 로직과 대비되는 시큐어 코딩 방어 로직 구현 및 비교",
-      "시연 환경: 누구나 손쉽게 접속해 실습 내용을 직관적으로 확인할 수 있는 웹 환경",
+      "취약점 실습: SQL Injection, XSS 등 체험 페이지",
+      "방어 코드: 취약한 로직과 시큐어 코딩 비교",
+      "시연 환경: 누구나 접속해 바로 확인",
     ],
     isCurrentCourse: true,
     isTeamFeature: true,
@@ -121,10 +118,9 @@ export const projectsSeed: ProjectSeed[] = [
   },
   {
     slug: "web-pedia-final",
-    title: "Web-Pedia v2 (웹 표준 & 모의 해킹 가이드 백과사전)",
+    title: "Web-Pedia v2",
     badge: "Team Project [FINAL] · 2026-1",
-    summary:
-      "중간 버전의 웹 표준 가이드에 XSS, SQL Injection 등 보안 취약점 설명과 퀴즈 기능을 더한 팀 프로젝트입니다.",
+    summary: "웹 취약점 설명과 퀴즈를 담은 팀 백과사전 (기말).",
     category: "security",
     kind: "team",
     stack: ["HTML", "CSS", "JavaScript"],
@@ -138,7 +134,7 @@ export const projectsSeed: ProjectSeed[] = [
     slug: "web-pedia-mid",
     title: "Web-Pedia (중간)",
     badge: "Team Project [MID] · 2026-1",
-    summary: "웹 표준 문법 및 보안 취약점 안내 백과사전. 팀 프로젝트 중간 협업 산출물입니다.",
+    summary: "웹 표준·보안 취약점 백과사전 (중간).",
     category: "web",
     kind: "team",
     stack: ["HTML", "CSS", "JavaScript"],
@@ -152,7 +148,7 @@ export const projectsSeed: ProjectSeed[] = [
     slug: "portfolio-final",
     title: "Chael2's Portfolio (기말)",
     badge: "Portfolio [FINAL]",
-    summary: "HTML/CSS/JS 기반 기말 포트폴리오 웹사이트. 해킹 터미널 추가 및 JS 기능 구현.",
+    summary: "HTML/CSS/JS 포트폴리오 (기말).",
     category: "web",
     kind: "assignment",
     stack: ["HTML", "CSS", "JavaScript"],
@@ -166,7 +162,7 @@ export const projectsSeed: ProjectSeed[] = [
     slug: "portfolio-mid",
     title: "Chael2's Portfolio (중간)",
     badge: "Portfolio [MID]",
-    summary: "첫 개인 포트폴리오 웹사이트. HTML/CSS 기반 웹사이트.",
+    summary: "첫 HTML/CSS 포트폴리오 (중간).",
     category: "web",
     kind: "assignment",
     stack: ["HTML", "CSS"],
@@ -180,8 +176,7 @@ export const projectsSeed: ProjectSeed[] = [
     slug: "web-programming-demo",
     title: "Web Programming Demo",
     badge: "WebDemo",
-    summary:
-      "HTML, CSS, JavaScript 기초 연습 사이트. 로컬 실시간 시계 구현, 반응형 레이아웃 설계, 멀티미디어 태그 실습 등을 수록했습니다.",
+    summary: "HTML·CSS·JS 기초 실습.",
     category: "web",
     kind: "assignment",
     stack: ["HTML", "CSS", "JavaScript"],
@@ -195,8 +190,7 @@ export const projectsSeed: ProjectSeed[] = [
     slug: "sql-sandbox",
     title: "SQL Injection Sandbox",
     badge: "Toy Project 1",
-    summary:
-      "SQL Injection 구문이 쿼리를 어떻게 바꾸는지 보여 주고, Prepared Statement를 적용했을 때 같은 입력이 어떻게 막히는지 비교하는 시뮬레이터입니다.",
+    summary: "SQL Injection 공격과 Prepared Statement 방어 비교 시뮬레이터.",
     category: "security",
     kind: "personal",
     stack: ["HTML", "CSS", "JavaScript"],
@@ -209,8 +203,7 @@ export const projectsSeed: ProjectSeed[] = [
     slug: "secure-todo",
     title: "Secure Task Manager",
     badge: "Toy Project 2",
-    summary:
-      "할 일 CRUD 기능에, 사용자가 입력한 Access Key로 XOR 연산 후 Base64로 인코딩해 localStorage에 저장하는 방식을 적용한 일정 관리 도구입니다.",
+    summary: "Access Key로 XOR·Base64 난독화해 저장하는 할 일 관리 도구.",
     category: "security",
     kind: "personal",
     stack: ["HTML", "CSS", "JavaScript"],
@@ -223,8 +216,7 @@ export const projectsSeed: ProjectSeed[] = [
     slug: "arduino-switch",
     title: "Remote Light Switch",
     badge: "Arduino",
-    summary:
-      "Arduino 보드와 제어 앱으로 전등 스위치를 원격 조작하는 하드웨어 프로젝트입니다.",
+    summary: "Arduino 원격 전등 스위치.",
     category: "hardware",
     kind: "team",
     stack: ["C++", "Arduino"],
@@ -236,7 +228,7 @@ export const projectsSeed: ProjectSeed[] = [
     slug: "codeup-java",
     title: "codeup_java",
     badge: "Study",
-    summary: "CodeUp Java 기초 100제 소스코드 저장소. 자바 프로그래밍 기본 알고리즘 학습 풀이 모음입니다.",
+    summary: "CodeUp Java 기초 100제 풀이.",
     category: "study",
     kind: "personal",
     stack: ["Java"],
@@ -252,7 +244,7 @@ export const teamSeed = [
   {
     name: "함유진",
     role: "팀장",
-    color: "#d946ef",
+    color: "#b3a6ff",
     githubUrl: "https://github.com/chael2",
     blogUrl: "https://chael2.tistory.com/",
     portfolioUrl: "/",
@@ -261,14 +253,14 @@ export const teamSeed = [
   {
     name: "김정은",
     role: "팀원",
-    color: "#06b6d4",
+    color: "#7fd4c4",
     githubUrl: "https://github.com/kimjungeunn",
     order: 1,
   },
   {
     name: "남유진",
     role: "팀원",
-    color: "#10b981",
+    color: "#9bb7ff",
     githubUrl: "https://github.com/yoojin33",
     blogUrl: "https://blog.naver.com/quarter0330",
     portfolioUrl: "https://nyj-final.vercel.app/",
@@ -277,7 +269,7 @@ export const teamSeed = [
   {
     name: "박다혜",
     role: "팀원",
-    color: "#f59e0b",
+    color: "#e2b866",
     order: 3,
   },
 ];
@@ -287,22 +279,22 @@ export const timelineSeed = [
   {
     step: 1,
     title: "기획 & 설계",
-    description: "팀 구성 및 주제 선정(OWASP Top 10 시연 및 방어 모의 웹사이트). 실습할 취약점 항목과 역할 분담 결정.",
+    description: "주제 선정과 역할 분담",
   },
   {
     step: 2,
-    title: "취약점 모의 실습 페이지 구현",
-    description: "SQL Injection, XSS 등 OWASP Top 10 주요 웹 취약점을 직접 체험할 수 있는 페이지 구현.",
+    title: "취약점 실습 페이지 구현",
+    description: "SQL Injection, XSS 등 취약점 체험 페이지",
   },
   {
     step: 3,
-    title: "시큐어 코딩 방어 로직 적용",
-    description: "취약한 로직과 대비되는 안전한 방어 코드를 구현하고, 두 결과를 비교 확인하는 기능 추가.",
+    title: "방어 로직 적용",
+    description: "취약한 코드와 방어 코드 비교",
   },
   {
     step: 4,
-    title: "배포 및 시연 환경 구축",
-    description: "Node.js + MongoDB 기반으로 누구나 접속해 실습 내용을 확인할 수 있도록 Vercel에 배포.",
+    title: "배포",
+    description: "Vercel 배포와 시연 환경 구성",
   },
 ];
 
@@ -310,28 +302,28 @@ export const postsSeed = [
   {
     title: "[Linux] SSH 접속하기",
     tag: "Linux",
-    summary: "SSH(Secure Shell)를 사용하여 원격 서버에 안전하게 접속하는 방법과 기초 명령어들을 정리했습니다.",
+    summary: "SSH 원격 접속과 기본 명령어 정리.",
     url: "https://chael2.tistory.com/5",
     order: 0,
   },
   {
     title: "[Linux/RCity] Operation RCity0",
     tag: "CTF / Linux",
-    summary: "레드플래그 RCity0 Linux 문제 풀이. 리눅스 명령어와 파일 시스템 구조를 활용한 문제 해결 과정.",
+    summary: "RCity0 Linux 문제 풀이.",
     url: "https://chael2.tistory.com/6",
     order: 1,
   },
   {
     title: "[Kali Linux] VMware에 설치하기",
     tag: "Kali Linux",
-    summary: "Kali Linux를 VMware에 설치하는 방법과 초기 보안 설정에 대하여 핵심 내용을 정리했습니다.",
+    summary: "VMware에 Kali Linux 설치와 초기 설정.",
     url: "https://chael2.tistory.com/3",
     order: 2,
   },
 ];
 
 export const blogCategories = [
-  { name: "Linux", desc: "시스템 명령어, SSH, 파일 시스템", icon: "linux", url: "https://chael2.tistory.com/category/%5BLinux%5D" },
-  { name: "Others", desc: "보안 문제 풀이, 취약점 분석, 자료구조", icon: "shield", url: "https://chael2.tistory.com/category/%5BOthers%5D" },
-  { name: "Web", desc: "웹 개발, 프론트엔드, 백엔드", icon: "terminal", url: "https://chael2.tistory.com/category/%5BWeb%5D" },
+  { name: "Linux", desc: "명령어, SSH, 파일 시스템", icon: "linux", url: "https://chael2.tistory.com/category/%5BLinux%5D" },
+  { name: "Others", desc: "문제 풀이, 취약점 분석", icon: "shield", url: "https://chael2.tistory.com/category/%5BOthers%5D" },
+  { name: "Web", desc: "웹 개발 기록", icon: "terminal", url: "https://chael2.tistory.com/category/%5BWeb%5D" },
 ];

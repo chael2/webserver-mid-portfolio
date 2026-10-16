@@ -28,9 +28,9 @@ export default function ProjectFilter({ projects }: { projects: ProjectItem[] })
             role="tab"
             aria-selected={filter === f.key}
             onClick={() => setFilter(f.key)}
-            className={`min-h-11 shrink-0 rounded-full border px-5 text-sm font-semibold transition ${
+            className={`min-h-10 shrink-0 rounded-xl border px-4 text-sm font-semibold transition ${
               filter === f.key
-                ? "border-secondary bg-primary/20 text-secondary shadow-neon"
+                ? "border-line-strong bg-surface-2 text-ink"
                 : "border-line bg-surface text-muted hover:border-secondary hover:text-ink"
             }`}
           >

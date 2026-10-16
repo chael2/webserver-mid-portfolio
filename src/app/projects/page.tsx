@@ -15,7 +15,7 @@ export default async function ProjectsPage() {
 
   return (
     <>
-      <PageHero label="Assignments" title="Web" accent="Projects" desc="웹 프로그래밍 과제와 보안 관련 프로젝트 분석 및 구현 아카이브입니다." />
+      <PageHero label="Assignments" title="Web" accent="Projects" desc="강의 과제와 개인·팀 프로젝트" />
 
       {/* 현재 강의 실습 프로젝트: 큰 배너 + GitHub / 배포 주소 분리 표기 */}
       <section aria-label="현재 강의 실습 프로젝트" className="mb-16">
@@ -23,7 +23,7 @@ export default async function ProjectsPage() {
         <div className="mt-8 space-y-5">
           {current.map((p) => (
             <article key={p.id} className="glow-card reveal flex flex-col gap-6 p-6 sm:p-8 md:flex-row md:items-center">
-              <div className="grid size-20 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-4xl text-white shadow-neon">
+              <div className="icon-box size-14 text-2xl">
                 <Icon name={p.icon} />
               </div>
               <div className="min-w-0 flex-1">

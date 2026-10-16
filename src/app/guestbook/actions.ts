@@ -1,12 +1,11 @@
 "use server";
 
-import { createHash } from "node:crypto";
-import { headers } from "next/headers";
 import { trusted } from "mongoose";
 import { z } from "zod";
 import { refresh } from "next/cache";
 import { connectDB, hasDB } from "@/lib/db";
 import { Guestbook } from "@/models/Guestbook";
+import { clientIpHash } from "@/lib/auth";
 
 const schema = z.object({
   name: z.string().trim().min(1, "이름을 입력하세요").max(20, "이름은 20자 이내로 입력하세요"),
@@ -17,13 +16,6 @@ export type GuestbookState = { ok: boolean; error?: string; at?: number };
 
 const WINDOW_MS = 60_000; // 1분
 const MAX_PER_WINDOW = 3; // 같은 IP에서 1분에 3개까지
-
-async function clientIpHash() {
-  const h = await headers();
-  const ip = h.get("x-forwarded-for")?.split(",")[0]?.trim() || h.get("x-real-ip") || "unknown";
-  const salt = process.env.IP_HASH_SALT ?? process.env.REVALIDATE_SECRET ?? "portfolio";
-  return createHash("sha256").update(`${salt}:${ip}`).digest("hex");
-}
 
 export async function addEntry(_prev: GuestbookState, formData: FormData): Promise<GuestbookState> {
   // honeypot: 사람에게는 보이지 않는 칸. 값이 있으면 봇으로 보고 조용히 무시

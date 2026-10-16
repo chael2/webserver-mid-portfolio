@@ -20,6 +20,9 @@
 | `/blog` | Tistory 블로그 링크, 카테고리, 최신 글 | profile, posts |
 | `/github` | GitHub 프로필, 주요 저장소 | profile, projects |
 | `/guestbook` | 방명록 작성(Server Action) / 목록 | guestbook |
+| `/security` | 이 사이트에 적용한 보안 설정 | — |
+| `/projects/[slug]` | 프로젝트 상세 (역할·기여·트러블슈팅) | projects |
+| `/login`, `/admin` | 관리자 로그인, 방명록 삭제 | guestbook |
 | `/toys/*.html` | SQL Injection Sandbox, Secure Task Manager (기존 토이 프로젝트 그대로) | — |
 | `/api/projects`, `/api/guestbook` | JSON API (GET) | |
 
@@ -34,6 +37,14 @@ npm run dev                  # http://localhost:3000
 ```
 
 `MONGODB_URI`가 없어도 `npm run dev`는 동작합니다. 이 경우 화면은 `src/data/seed-data.ts` 내용으로 그려지고, 방명록만 "DB 미연결"로 표시됩니다.
+
+## 관리자 로그인 설정
+
+```bash
+npm run hash-password -- "10자 이상의 비밀번호"
+```
+
+출력된 `ADMIN_PASSWORD_HASH`, `SESSION_SECRET` 두 줄을 `.env.local`(로컬)과 Vercel 환경 변수에 넣고, `ADMIN_USERNAME`도 정해 주세요. 페이지 하단 자물쇠 아이콘 → `/login`에서 로그인하면 `/admin`에서 방명록 글을 삭제할 수 있습니다.
 
 ## 데이터 수정
 
@@ -65,7 +76,7 @@ public/toys/             # 토이 프로젝트 HTML
 1. MongoDB Atlas에서 무료 클러스터 생성 → Database Access에서 사용자 생성 → Network Access에 `0.0.0.0/0` 허용
 2. GitHub에 이 저장소 push
 3. Vercel → Add New → Project → 저장소 Import (설정은 기본값)
-4. Settings → Environment Variables에 `MONGODB_URI`, `MONGODB_DB`, `REVALIDATE_SECRET` 등록 후 Redeploy
+4. Settings → Environment Variables에 `.env.example`의 값들(`MONGODB_URI`, `MONGODB_DB`, `REVALIDATE_SECRET`, `IP_HASH_SALT`, `ADMIN_USERNAME`, `ADMIN_PASSWORD_HASH`, `SESSION_SECRET`) 등록 후 Redeploy
 
 빌드할 때 DB를 읽어 페이지를 미리 만들기 때문에, Vercel 환경 변수를 넣지 않고 배포하면 seed-data로 만들어집니다.
 

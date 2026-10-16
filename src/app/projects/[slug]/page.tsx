@@ -36,7 +36,7 @@ export default async function ProjectDetailPage({ params }: PageProps<"/projects
       </Link>
 
       <header className="mt-4 flex flex-col gap-5 sm:flex-row sm:items-start">
-        <div className="grid size-16 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-3xl text-white">
+        <div className="icon-box size-14 text-2xl">
           <Icon name={p.icon} />
         </div>
         <div>
@@ -45,7 +45,7 @@ export default async function ProjectDetailPage({ params }: PageProps<"/projects
             <span>{KIND[p.kind] ?? p.kind}</span>
             {p.period && <span>· {p.period}</span>}
           </div>
-          <h1 className="mt-3 font-display text-3xl font-extrabold leading-tight sm:text-4xl">{p.title}</h1>
+          <h1 className="mt-3 font-display text-3xl font-bold leading-tight sm:text-4xl">{p.title}</h1>
           <p className="mt-4 leading-relaxed text-muted sm:text-lg">{p.summary}</p>
           <LinkButtons githubUrl={p.githubUrl} deployUrl={p.deployUrl} className="mt-6" />
         </div>

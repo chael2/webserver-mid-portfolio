@@ -42,10 +42,10 @@ export default function Navbar({ handle }: { handle: string }) {
   return (
     <>
       <nav
-        className={`fixed inset-x-3 z-50 mx-auto flex max-w-6xl items-center justify-between rounded-full border px-4 backdrop-blur-xl backdrop-saturate-150 transition-all duration-300 sm:inset-x-6 sm:px-6 ${
+        className={`fixed inset-x-3 z-50 mx-auto flex max-w-6xl items-center justify-between rounded-2xl border px-4 backdrop-blur-xl backdrop-saturate-150 transition-all duration-300 sm:inset-x-6 sm:px-6 ${
           scrolled
-            ? "top-2 h-14 border-line-strong bg-surface-strong shadow-[0_12px_40px_rgb(147_51_234/0.25)]"
-            : "top-4 h-16 border-line bg-surface shadow-card"
+            ? "top-2 h-14 border-line bg-surface-strong shadow-card"
+            : "top-4 h-16 border-transparent bg-transparent"
         }`}
         aria-label="주요 메뉴"
       >
@@ -61,7 +61,7 @@ export default function Navbar({ handle }: { handle: string }) {
                 aria-current={isActive(n.href) ? "page" : undefined}
                 className={`rounded-full px-3.5 py-2 text-sm font-medium transition ${
                   isActive(n.href)
-                    ? "bg-primary/20 text-secondary shadow-neon"
+                    ? "bg-surface-2 text-ink"
                     : "text-muted hover:bg-surface-2 hover:text-ink"
                 }`}
               >
@@ -100,8 +100,8 @@ export default function Navbar({ handle }: { handle: string }) {
             href={n.href}
             tabIndex={open ? 0 : -1}
             onClick={() => setOpen(false)}
-            className={`w-64 rounded-2xl px-6 py-3 text-center font-display text-2xl font-bold transition ${
-              isActive(n.href) ? "text-secondary" : "text-ink hover:text-accent"
+            className={`w-64 rounded-2xl px-6 py-3 text-center text-2xl font-semibold transition ${
+              isActive(n.href) ? "text-secondary" : "text-ink hover:text-secondary"
             }`}
           >
             {n.label}

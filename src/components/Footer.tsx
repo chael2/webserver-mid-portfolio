@@ -1,4 +1,5 @@
-import { FaEnvelope, FaGithub, FaRss } from "react-icons/fa6";
+import Link from "next/link";
+import { FaEnvelope, FaGithub, FaLock, FaRss } from "react-icons/fa6";
 import { getProfile } from "@/lib/queries";
 
 export default async function Footer() {
@@ -9,10 +10,13 @@ export default async function Footer() {
         <div>
           <div className="logo">{profile.handle}</div>
           <p className="mt-1 text-sm text-muted">
-            © 2026 {profile.name}({profile.handle}). Built with Next.js · MongoDB · Tailwind CSS
+            © 2026 {profile.name} · Next.js · MongoDB
           </p>
         </div>
-        <div className="flex gap-2 text-xl">
+        <div className="flex gap-1 text-lg">
+          <Link href="/login" aria-label="관리자 로그인" className="grid size-11 place-items-center rounded-full text-muted transition hover:text-secondary">
+            <FaLock />
+          </Link>
           <a href={profile.links.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="grid size-11 place-items-center rounded-full text-muted transition hover:text-accent">
             <FaGithub />
           </a>
