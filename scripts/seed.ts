@@ -35,6 +35,12 @@ async function main() {
   for (const m of teamSeed) await TeamMember.updateOne({ name: m.name }, m, { upsert: true });
   for (const t of timelineSeed) await Timeline.updateOne({ step: t.step }, t, { upsert: true });
   for (const p of postsSeed) await Post.updateOne({ url: p.url }, p, { upsert: true });
+  // seed-data에서 빠진 항목은 DB에서도 삭제 (방명록은 건드리지 않음)
+  await Project.deleteMany({ slug: { $nin: projectsSeed.map((p) => p.slug) } });
+  await Skill.deleteMany({ name: { $nin: skillsSeed.map((s) => s.name) } });
+  await TeamMember.deleteMany({ name: { $nin: teamSeed.map((m) => m.name) } });
+  await Timeline.deleteMany({ step: { $nin: timelineSeed.map((t) => t.step) } });
+  await Post.deleteMany({ url: { $nin: postsSeed.map((p) => p.url) } });
   await Promise.all([Project, Skill, TeamMember, Timeline, Profile, Post].map((m) => m.syncIndexes()));
 
   console.log(

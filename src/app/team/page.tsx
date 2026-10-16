@@ -4,35 +4,44 @@ import { PageHero, SectionHeading } from "@/components/PageHero";
 import { LinkButtons } from "@/components/LinkButtons";
 import { getProjects, getTeamMembers, getTimeline } from "@/lib/queries";
 
-export const metadata: Metadata = { title: "Team", description: "Web-Pedia 팀원 소개와 팀 프로젝트 배포 주소" };
+export const metadata: Metadata = { title: "Team", description: "팀원 소개와 팀 프로젝트 GitHub·배포 주소" };
 
 export default async function TeamPage() {
   const [members, timeline, projects] = await Promise.all([getTeamMembers(), getTimeline(), getProjects()]);
-  const teamProjects = projects.filter((p) => p.slug.startsWith("web-pedia"));
+  // 팀 페이지 대표 프로젝트 (seed-data의 isTeamFeature)
+  const tp = projects.find((p) => p.isTeamFeature) ?? projects.find((p) => p.kind === "team" && p.isCurrentCourse);
 
   return (
     <>
-      <PageHero label="Web-Pedia Team" title="Meet Our" accent="Team" desc="Web-Pedia 프로젝트를 함께 성실하게 설계하고 발전시켜 나가는 팀원들을 소개합니다." />
+      <PageHero label="Web Server Programming Team" title="Meet Our" accent="Team" desc={`${tp ? tp.title : "팀 프로젝트"}를 함께 설계하고 구현하는 팀원들을 소개합니다.`} />
 
-      {/* 팀 프로젝트 배포 주소 */}
-      <section className="glow-card reveal p-6 sm:p-9" aria-labelledby="blueprint">
-        <p className="section-label">Team Project Blueprint</p>
-        <h2 id="blueprint" className="mt-4 font-display text-2xl font-extrabold sm:text-3xl">
-          Web-Pedia <span className="accent-text">(웹피디아)</span>
-        </h2>
-        <p className="mt-3 max-w-3xl leading-relaxed text-muted">
-          정보보안에 도움이 되는 웹 표준 문법과 시큐어 코딩 및 방어 기법들을 정리한 공동 백과사전 개발 산출물입니다.
-        </p>
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
-          {teamProjects.map((p) => (
-            <div key={p.id} className="rounded-2xl border border-line bg-surface-2 p-5">
-              {p.badge && <span className="tag">{p.badge}</span>}
-              <h3 className="mt-3 font-display font-bold">{p.title}</h3>
-              <LinkButtons githubUrl={p.githubUrl} deployUrl={p.deployUrl} size="sm" className="mt-4" />
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* 팀 프로젝트: GitHub 저장소 / 배포 주소 */}
+      {tp && (
+        <section className="glow-card reveal p-6 sm:p-9" aria-labelledby="blueprint">
+          <p className="section-label">Team Project Blueprint</p>
+          {tp.badge && <span className="tag mt-4">{tp.badge}</span>}
+          <h2 id="blueprint" className="mt-3 font-display text-2xl font-extrabold leading-snug sm:text-3xl">
+            {tp.title}
+          </h2>
+          <p className="mt-3 max-w-3xl leading-relaxed text-muted">{tp.summary}</p>
+          {tp.highlights && tp.highlights.length > 0 && (
+            <ol className="mt-6 grid gap-3 md:grid-cols-3">
+              {tp.highlights.map((h, i) => {
+                const [head, ...rest] = h.split(": ");
+                return (
+                  <li key={h} className="rounded-2xl border border-line bg-surface-2 p-4">
+                    <span className="font-mono text-xs text-accent">FEATURE 0{i + 1}</span>
+                    <p className="mt-1 font-display font-bold">{rest.length ? head : `기능 ${i + 1}`}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-muted">{rest.length ? rest.join(": ") : h}</p>
+                  </li>
+                );
+              })}
+            </ol>
+          )}
+          {tp.stack.length > 0 && <p className="mt-5 font-mono text-xs text-muted">stack: {tp.stack.join(" · ")}</p>}
+          <LinkButtons githubUrl={tp.githubUrl} deployUrl={tp.deployUrl} className="mt-5" />
+        </section>
+      )}
 
       {/* 팀원 카드: 1열 → 2열 → 4열 */}
       <section className="mt-16" aria-label="팀원">

@@ -20,7 +20,9 @@ export type ProjectSeed = {
   icon: string;
   githubUrl?: string;
   deployUrl?: string;
+  highlights?: string[];
   isCurrentCourse?: boolean;
+  isTeamFeature?: boolean;
   showOnGithub?: boolean;
   order: number;
 };
@@ -78,17 +80,39 @@ export const projectsSeed: ProjectSeed[] = [
     kind: "assignment",
     stack: ["Next.js", "MongoDB", "Tailwind CSS", "Vercel"],
     icon: "next",
-    // TODO: 새 GitHub 저장소와 Vercel 배포 주소가 생기면 아래 두 값을 바꾸고 `npm run seed` 다시 실행
-    githubUrl: "https://github.com/chael2/serverpro",
-    deployUrl: "https://serverpro.vercel.app/",
+    githubUrl: "https://github.com/chael2/webserver-mid-portfolio",
+    // TODO: Vercel 배포 후 deployUrl: "https://....vercel.app/" 추가하고 `npm run seed` 다시 실행
     isCurrentCourse: true,
     showOnGithub: true,
     order: 0,
   },
   {
+    slug: "owasp-top10-demo",
+    title: "OWASP Top 10 시연 및 방어 모의 웹사이트",
+    badge: "웹서버프로그래밍 Team Project",
+    summary:
+      "SQL Injection, XSS 등 OWASP Top 10 주요 웹 취약점을 직접 체험하고, 같은 기능을 시큐어 코딩으로 막아낸 방어 로직과 나란히 비교해 볼 수 있는 모의 실습 웹사이트입니다.",
+    category: "security",
+    kind: "team",
+    stack: ["Node.js", "MongoDB"],
+    icon: "shield",
+    // TODO: 저장소를 옮기면 githubUrl을 새 주소로 바꾸고 `npm run seed` 다시 실행
+    githubUrl: "https://github.com/kimjungeunn/Web_Programming_Midterm_Demo",
+    deployUrl: "https://web-programming-midterm-demo.vercel.app/",
+    highlights: [
+      "취약점 모의 실습: SQL Injection, XSS 등 OWASP Top 10 주요 웹 취약점 체험 페이지",
+      "보안 방어 코드: 취약한 로직과 대비되는 시큐어 코딩 방어 로직 구현 및 비교",
+      "시연 환경: 누구나 손쉽게 접속해 실습 내용을 직관적으로 확인할 수 있는 웹 환경",
+    ],
+    isCurrentCourse: true,
+    isTeamFeature: true,
+    showOnGithub: true,
+    order: 1,
+  },
+  {
     slug: "web-pedia-final",
     title: "Web-Pedia v2 (웹 표준 & 모의 해킹 가이드 백과사전)",
-    badge: "Team Core Project [FINAL]",
+    badge: "Team Project [FINAL] · 2026-1",
     summary:
       "중간 발표의 웹 표준 가이드를 기말 최종 리뉴얼하여, 핵심 보안 취약점(XSS, SQL Injection)에 대한 가상 대응을 시각적으로 학습할 수 있는 실시간 모의 퀴즈 엔진을 탑재한 협업 사이트입니다.",
     category: "security",
@@ -97,14 +121,13 @@ export const projectsSeed: ProjectSeed[] = [
     icon: "shield",
     githubUrl: "https://github.com/chael2/web-fin-team",
     deployUrl: "https://web-fin-team.vercel.app/",
-    isCurrentCourse: true,
     showOnGithub: true,
-    order: 1,
+    order: 2,
   },
   {
     slug: "web-pedia-mid",
     title: "Web-Pedia (중간)",
-    badge: "Team Project [MID]",
+    badge: "Team Project [MID] · 2026-1",
     summary: "웹 표준 문법 및 보안 취약점 안내 백과사전. 팀 프로젝트 중간 협업 산출물입니다.",
     category: "web",
     kind: "team",
@@ -113,7 +136,7 @@ export const projectsSeed: ProjectSeed[] = [
     githubUrl: "https://github.com/chael2/web-mid-team",
     deployUrl: "https://web-mid-team.vercel.app/",
     showOnGithub: true,
-    order: 2,
+    order: 3,
   },
   {
     slug: "portfolio-final",
@@ -127,7 +150,7 @@ export const projectsSeed: ProjectSeed[] = [
     githubUrl: "https://github.com/chael2/web-fin-portfolio",
     deployUrl: "https://chael2-fin-portfolio.vercel.app/",
     showOnGithub: true,
-    order: 3,
+    order: 4,
   },
   {
     slug: "portfolio-mid",
@@ -141,7 +164,7 @@ export const projectsSeed: ProjectSeed[] = [
     githubUrl: "https://github.com/chael2/web-mid-portfolio",
     deployUrl: "https://web-mid-portfolio.vercel.app/",
     showOnGithub: true,
-    order: 4,
+    order: 5,
   },
   {
     slug: "web-programming-demo",
@@ -156,7 +179,7 @@ export const projectsSeed: ProjectSeed[] = [
     githubUrl: "https://github.com/chael2/hcj1",
     deployUrl: "https://hcj1-five.vercel.app/",
     showOnGithub: true,
-    order: 5,
+    order: 6,
   },
   {
     slug: "sql-sandbox",
@@ -170,7 +193,7 @@ export const projectsSeed: ProjectSeed[] = [
     icon: "terminal",
     githubUrl: "https://github.com/chael2/sql-sandbox",
     deployUrl: "/toys/sql-sandbox.html",
-    order: 6,
+    order: 7,
   },
   {
     slug: "secure-todo",
@@ -184,7 +207,7 @@ export const projectsSeed: ProjectSeed[] = [
     icon: "key",
     githubUrl: "https://github.com/chael2/secure-todo",
     deployUrl: "/toys/secure-todo.html",
-    order: 7,
+    order: 8,
   },
   {
     slug: "arduino-switch",
@@ -197,7 +220,7 @@ export const projectsSeed: ProjectSeed[] = [
     stack: ["C++", "Arduino"],
     icon: "chip",
     githubUrl: "https://github.com/SCProject-Tech/Arduino",
-    order: 8,
+    order: 9,
   },
   {
     slug: "codeup-java",
@@ -210,10 +233,11 @@ export const projectsSeed: ProjectSeed[] = [
     icon: "java",
     githubUrl: "https://github.com/chael2/codeup_java",
     showOnGithub: true,
-    order: 9,
+    order: 10,
   },
 ];
 
+/** 현재 팀 프로젝트(OWASP Top 10 시연 사이트) 팀원 — 학번 등 개인정보는 넣지 않음 */
 export const teamSeed = [
   {
     name: "함유진",
@@ -225,50 +249,50 @@ export const teamSeed = [
     order: 0,
   },
   {
+    name: "김정은",
+    role: "팀원",
+    color: "#06b6d4",
+    githubUrl: "https://github.com/kimjungeunn",
+    order: 1,
+  },
+  {
     name: "남유진",
     role: "팀원",
     color: "#10b981",
     githubUrl: "https://github.com/yoojin33",
     blogUrl: "https://blog.naver.com/quarter0330",
     portfolioUrl: "https://nyj-final.vercel.app/",
-    order: 1,
-  },
-  {
-    name: "조윤서",
-    role: "팀원",
-    color: "#3b82f6",
-    githubUrl: "https://github.com/avac2613",
-    blogUrl: "https://blog.naver.com/avac-ode2613",
-    portfolioUrl: "https://finals-own.vercel.app/",
     order: 2,
   },
   {
-    name: "홍영우",
+    name: "박다혜",
     role: "팀원",
-    color: "#ec4899",
-    githubUrl: "https://github.com/hongwoo0516-commits",
-    blogUrl: "https://blog.naver.com/youngwoo0405",
-    portfolioUrl: "https://files-nine-weld.vercel.app",
+    color: "#f59e0b",
     order: 3,
   },
 ];
 
-/** 이력 정보: 팀 프로젝트 개발 과정 타임라인 */
+/** 이력 정보: 현재 팀 프로젝트 개발 과정 (진행 상황에 맞게 수정하세요) */
 export const timelineSeed = [
   {
     step: 1,
     title: "기획 & 설계",
-    description: "팀 구성 및 프로젝트 주제 선정. 웹 표준과 보안이 결합된 백과사전식 사이트 기획. 역할 분담 및 설계 완료.",
+    description: "팀 구성 및 주제 선정(OWASP Top 10 시연 및 방어 모의 웹사이트). 실습할 취약점 항목과 역할 분담 결정.",
   },
   {
     step: 2,
-    title: "중간 발표 (Mid-Term)",
-    description: "HTML5/CSS3 기반 기초 구조 완성. 반응형 레이아웃 구현. 웹 표준 문법 콘텐츠 작성. GitHub을 통한 협업 진행.",
+    title: "취약점 모의 실습 페이지 구현",
+    description: "SQL Injection, XSS 등 OWASP Top 10 주요 웹 취약점을 직접 체험할 수 있는 페이지 구현.",
   },
   {
     step: 3,
-    title: "기말 발표 (Final) 및 사이트 리뉴얼",
-    description: "보안 취약점 백과사전 안내 완성 및 사이트 전체 디자인 리뉴얼. JavaScript 기능 사용 및 퀴즈 기능 추가.",
+    title: "시큐어 코딩 방어 로직 적용",
+    description: "취약한 로직과 대비되는 안전한 방어 코드를 구현하고, 두 결과를 비교 확인하는 기능 추가.",
+  },
+  {
+    step: 4,
+    title: "배포 및 시연 환경 구축",
+    description: "Node.js + MongoDB 기반으로 누구나 접속해 실습 내용을 확인할 수 있도록 Vercel에 배포.",
   },
 ];
 

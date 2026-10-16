@@ -12,7 +12,9 @@ const ProjectSchema = new Schema(
     icon: { type: String, default: "code" },
     githubUrl: String, // GitHub 저장소 주소
     deployUrl: String, // 실제 배포 주소
+    highlights: { type: [String], default: [] }, // 주요 기능 목록
     isCurrentCourse: { type: Boolean, default: false }, // 현재 강의 실습 프로젝트
+    isTeamFeature: { type: Boolean, default: false }, // 팀 페이지 대표 프로젝트
     showOnGithub: { type: Boolean, default: false }, // GitHub 페이지 저장소 목록 노출
     order: { type: Number, default: 0 },
   },

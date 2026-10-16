@@ -29,6 +29,16 @@ export default async function ProjectsPage() {
                 {p.badge && <span className="tag">{p.badge}</span>}
                 <h3 className="mt-3 font-display text-xl font-bold leading-snug sm:text-2xl">{p.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted sm:text-base">{p.summary}</p>
+                {p.highlights && p.highlights.length > 0 && (
+                  <ul className="mt-4 space-y-1.5 text-sm text-muted">
+                    {p.highlights.map((h) => (
+                      <li key={h} className="flex gap-2">
+                        <span className="text-accent" aria-hidden>▹</span>
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 <div className="mt-5 grid gap-2 sm:grid-cols-2">
                   <UrlRow label="GitHub 저장소" url={p.githubUrl} tone="text-accent" />
                   <UrlRow label="배포 주소" url={p.deployUrl} tone="text-secondary" />

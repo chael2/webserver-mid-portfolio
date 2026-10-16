@@ -14,7 +14,7 @@ export default async function HomePage() {
     { href: "/blog", icon: FaRss, title: "Study Notes (Tistory)", desc: "리눅스 기초 학습, RCity 문제 풀이(CTF), VMware 설치 가이드 등 배운 것을 기록하는 기술 기록소입니다.", cta: "블로그 글 열기", span: "lg:col-span-2", tone: "text-secondary" },
     { href: "/github", icon: FaGithub, title: "GitHub logs", desc: "코드 저장소 활동", cta: "레포 확인", span: "", tone: "text-accent" },
     { href: "/projects", icon: FaFolderOpen, title: "Projects", desc: `웹 프로그래밍 과제와 개인·팀 프로젝트 ${projects.length}개를 소개합니다.`, cta: "아카이브 보기", span: "lg:col-span-2", tone: "text-secondary" },
-    { href: "/team", icon: FaUsers, title: "Co-Ops", desc: `Web-Pedia를 함께 구축한 ${team.length}명의 팀원 소개.`, cta: "팀원 조회", span: "", tone: "text-success" },
+    { href: "/team", icon: FaUsers, title: "Co-Ops", desc: `OWASP Top 10 시연 사이트를 함께 만드는 ${team.length}명의 팀원 소개.`, cta: "팀원 조회", span: "", tone: "text-success" },
   ];
 
   return (
