@@ -71,7 +71,7 @@ export default async function HomePage() {
             {current.map((p) => (
               <article key={p.id} className="glow-card reveal flex flex-col p-6 sm:p-8">
                 {p.badge && <span className="tag self-start">{p.badge}</span>}
-                <h3 className="mt-4 font-display text-xl font-bold leading-snug sm:text-2xl">{p.title}</h3>
+                <h3 className="mt-4 font-display text-xl font-bold leading-snug break-keep sm:text-2xl">{p.title}</h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-muted sm:text-base">{p.summary}</p>
                 <dl className="mt-5 space-y-1.5 break-all font-mono text-xs text-muted">
                   {p.githubUrl && (

@@ -28,7 +28,7 @@ export default async function ProjectsPage() {
               </div>
               <div className="min-w-0 flex-1">
                 {p.badge && <span className="tag">{p.badge}</span>}
-                <h3 className="mt-3 font-display text-xl font-bold leading-snug sm:text-2xl">
+                <h3 className="mt-3 font-display text-xl font-bold leading-snug break-keep sm:text-2xl">
                   <Link href={`/projects/${p.slug}`} className="hover:text-accent hover:underline">
                     {p.title}
                   </Link>

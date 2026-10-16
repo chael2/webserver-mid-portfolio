@@ -17,7 +17,7 @@ export function ProjectCard({ p }: { p: ProjectItem }) {
           {KIND[p.kind] ?? p.kind}
         </span>
       </div>
-      <h3 className="mt-5 text-lg font-semibold leading-snug">
+      <h3 className="mt-5 text-lg font-semibold leading-snug break-keep">
         <Link href={`/projects/${p.slug}`} className="hover:text-secondary">
           {p.title}
         </Link>

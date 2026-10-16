@@ -75,6 +75,21 @@ export const skillsSeed = [
 
 export const projectsSeed: ProjectSeed[] = [
   {
+    slug: "webserver-assignments",
+    title: "웹서버프로그래밍 실습",
+    badge: "웹서버프로그래밍 · Personal",
+    summary: "Next.js와 MongoDB로 회원가입·로그인, 공지사항 CRUD를 구현한 강의 실습.",
+    category: "web",
+    kind: "assignment",
+    stack: ["Next.js", "MongoDB", "NextAuth"],
+    icon: "next",
+    githubUrl: "https://github.com/chael2/assignments-92410988",
+    deployUrl: "https://assignments-92410988.vercel.app/",
+    isCurrentCourse: true,
+    showOnGithub: true,
+    order: 0,
+  },
+  {
     slug: "portfolio-nextjs",
     title: "Chael2's Portfolio (Next.js + MongoDB)",
     badge: "웹서버프로그래밍",
@@ -85,7 +100,6 @@ export const projectsSeed: ProjectSeed[] = [
     icon: "next",
     githubUrl: "https://github.com/chael2/webserver-mid-portfolio",
     // TODO: Vercel 배포 후 deployUrl: "https://....vercel.app/" 추가하고 `npm run seed` 다시 실행
-    isCurrentCourse: true,
     showOnGithub: true,
     order: 0,
   },
@@ -96,7 +110,7 @@ export const projectsSeed: ProjectSeed[] = [
     summary: "OWASP Top 10 취약점을 직접 시연하고, 방어 코드와 비교하는 모의 사이트.",
     category: "security",
     kind: "team",
-    stack: ["Node.js", "MongoDB"],
+    stack: ["Next.js", "MongoDB"],
     icon: "shield",
     // TODO: 저장소를 옮기면 githubUrl을 새 주소로 바꾸고 `npm run seed` 다시 실행
     githubUrl: "https://github.com/kimjungeunn/Web_Programming_Midterm_Demo",
