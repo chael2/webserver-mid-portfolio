@@ -99,7 +99,7 @@ export const projectsSeed: ProjectSeed[] = [
     stack: ["Next.js", "MongoDB", "Tailwind CSS", "Vercel"],
     icon: "next",
     githubUrl: "https://github.com/chael2/webserver-mid-portfolio",
-    // TODO: Vercel 배포 후 deployUrl: "https://....vercel.app/" 추가하고 `npm run seed` 다시 실행
+    deployUrl: "https://webserver-mid-portfolio.vercel.app/",
     showOnGithub: true,
     order: 0,
   },
