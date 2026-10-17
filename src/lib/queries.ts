@@ -42,81 +42,116 @@ function withId<T extends object>(rows: T[], key: (r: T) => string | number) {
   return rows.map((r) => ({ ...r, id: String(key(r)) }));
 }
 
+/**
+ * DB에서 읽되, DB가 없거나 / 접속·조회에 실패하거나 / 비어 있으면 seed-data로 대신 그림.
+ * → 빌드 중 DB 문제가 있어도 배포가 멈추지 않음. 대체 결과는 1분만 캐시해 DB가 돌아오면 곧 실제 데이터로 바뀜.
+ * ('use cache' 함수 안에서만 호출)
+ */
+async function readOrSeed<T>(label: string, read: () => Promise<T | null>, seed: T): Promise<T> {
+  if (!hasDB()) {
+    cacheLife("hours");
+    return seed;
+  }
+  try {
+    await connectDB();
+    const data = await read();
+    if (data && (!Array.isArray(data) || data.length > 0)) {
+      cacheLife("hours");
+      return data;
+    }
+  } catch (err) {
+    console.error(`[db] ${label} 조회 실패 → seed-data로 표시`, err);
+  }
+  cacheLife("minutes");
+  return seed;
+}
+
 /* ── 읽기 전용 데이터: 'use cache'로 캐시, 태그로 즉시 무효화 가능 ── */
 
 export async function getProfile(): Promise<ProfileData> {
   "use cache";
-  cacheLife("hours");
   cacheTag("profile");
-  if (!hasDB()) return profileSeed;
-  await connectDB();
-  const doc = await Profile.findOne({ key: "main" }).lean();
-  if (!doc) return profileSeed;
-  const [p] = plain<ProfileData & { id: string }>([doc]);
-  return { ...profileSeed, ...p };
+  return readOrSeed(
+    "profile",
+    async () => {
+      const doc = await Profile.findOne({ key: "main" }).lean();
+      if (!doc) return null;
+      const [p] = plain<ProfileData & { id: string }>([doc]);
+      return { ...profileSeed, ...p };
+    },
+    profileSeed,
+  );
 }
 
 export async function getProjects(): Promise<ProjectItem[]> {
   "use cache";
-  cacheLife("hours");
   cacheTag("projects");
-  if (!hasDB()) {
-    return withId(
+  return readOrSeed(
+    "projects",
+    async () => plain<ProjectItem>(await Project.find().sort({ isCurrentCourse: -1, order: 1 }).lean()),
+    withId(
       [...projectsSeed].sort((a, b) => Number(!!b.isCurrentCourse) - Number(!!a.isCurrentCourse) || a.order - b.order),
       (p) => p.slug,
-    );
-  }
-  await connectDB();
-  const docs = await Project.find().sort({ isCurrentCourse: -1, order: 1 }).lean();
-  return plain<ProjectItem>(docs);
+    ),
+  );
 }
 
 export async function getSkills(): Promise<SkillItem[]> {
   "use cache";
-  cacheLife("hours");
   cacheTag("skills");
-  if (!hasDB()) return withId(skillsSeed, (s) => s.name);
-  await connectDB();
-  return plain<SkillItem>(await Skill.find().sort({ order: 1 }).lean());
+  return readOrSeed(
+    "skills",
+    async () => plain<SkillItem>(await Skill.find().sort({ order: 1 }).lean()),
+    withId(skillsSeed, (s) => s.name),
+  );
 }
 
 export async function getTeamMembers(): Promise<TeamMemberItem[]> {
   "use cache";
-  cacheLife("hours");
   cacheTag("team");
-  if (!hasDB()) return withId(teamSeed, (m) => m.name);
-  await connectDB();
-  return plain<TeamMemberItem>(await TeamMember.find().sort({ order: 1 }).lean());
+  return readOrSeed(
+    "team",
+    async () => plain<TeamMemberItem>(await TeamMember.find().sort({ order: 1 }).lean()),
+    withId(teamSeed, (m) => m.name),
+  );
 }
 
 export async function getTimeline(): Promise<TimelineItem[]> {
   "use cache";
-  cacheLife("hours");
   cacheTag("timeline");
-  if (!hasDB()) return withId(timelineSeed, (t) => t.step);
-  await connectDB();
-  return plain<TimelineItem>(await Timeline.find().sort({ step: 1 }).lean());
+  return readOrSeed(
+    "timeline",
+    async () => plain<TimelineItem>(await Timeline.find().sort({ step: 1 }).lean()),
+    withId(timelineSeed, (t) => t.step),
+  );
 }
 
 export async function getPosts(): Promise<PostItem[]> {
   "use cache";
-  cacheLife("hours");
   cacheTag("posts");
-  if (!hasDB()) return withId(postsSeed, (p) => p.url);
-  await connectDB();
-  return plain<PostItem>(await Post.find().sort({ order: 1 }).lean());
+  return readOrSeed(
+    "posts",
+    async () => plain<PostItem>(await Post.find().sort({ order: 1 }).lean()),
+    withId(postsSeed, (p) => p.url),
+  );
 }
 
 /* ── 방명록: 항상 최신 데이터 (캐시하지 않음, 페이지에서 Suspense로 감쌈) ── */
 
 export async function getGuestbook(limit = 50): Promise<GuestbookItem[]> {
   if (!hasDB()) return [];
-  await connectDB();
-  const docs = await Guestbook.find().sort({ createdAt: -1 }).limit(limit).lean();
-  return docs.map((d) => ({
-    id: String(d._id),
-    name: d.name,
-    message: d.message,
-    createdAt: new Date(d.createdAt).toISOString(),
-  }));
+  try {
+    await connectDB();
+    const docs = await Guestbook.find().sort({ createdAt: -1 }).limit(limit).lean();
+    return docs.map((d) => ({
+      id: String(d._id),
+      name: d.name,
+      message: d.message,
+      createdAt: new Date(d.createdAt).toISOString(),
+    }));
+  } catch (err) {
+    // DB 장애 시 페이지 전체가 깨지지 않도록 빈 목록 (글 작성은 actions에서 오류 메시지로 안내)
+    console.error("[db] guestbook 조회 실패", err);
+    return [];
+  }
 }
